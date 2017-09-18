@@ -5,7 +5,7 @@ C:\programming\university\web\TimeTracker\TimeTracker\bin\Debug\netcoreapp1.1\Ti
 C:\programming\university\web\TimeTracker\TimeTracker\bin\Debug\netcoreapp1.1\TimeTracker.pdb
 C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\TimeTracker.csprojResolveAssemblyReference.cache
 C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\TimeTracker.csproj.CoreCompileInputs.cache
-C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\TimeTracker.AssemblyInfo.cs
 C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\TimeTracker.dll
 C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\TimeTracker.pdb
+C:\programming\university\web\TimeTracker\TimeTracker\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs

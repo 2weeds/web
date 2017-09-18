@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using TimeTracker.Data;
 using TimeTracker.Models;
 using TimeTracker.Services;
+//using MySql.Data.
 
 namespace TimeTracker
 {
@@ -41,7 +42,18 @@ namespace TimeTracker
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                options.UseMySql(
+                    Configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            //var sqlConnectionString = Configuration.GetConnectionString("DataAccessMySqlProvider");
+            //app.AddDbContext<DomainModelMySqlContext>(options =>
+            //   options.UseMySQL(
+            //        sqlConnectionString,
+            //        b => b.MigrationsAssembly("AspNetCoreMultipleProject")
+            //    )
+            //);
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -57,6 +69,7 @@ namespace TimeTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -83,6 +96,8 @@ namespace TimeTracker
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }
