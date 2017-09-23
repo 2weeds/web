@@ -9,9 +9,9 @@ namespace TimeTracker.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ITeamRepository repository;
+        private readonly IProjectsRepository repository;
 
-        public HomeController(ITeamRepository repository)
+        public HomeController(IProjectsRepository repository)
         {
             this.repository = repository;
         }

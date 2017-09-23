@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TimeTracker.Models.TeamModels;
+using TimeTracker.Models.ProjectModels;
+using TimeTracker.Repositories.Interfaces;
 
 namespace TimeTracker.Repositories.Interfacies
 {
-    public interface ITeamRepository
+    public interface IProjectsRepository : IBaseRepository<Project, string>
     {
-        List<Team> GetAll();
-
 
     }
 }

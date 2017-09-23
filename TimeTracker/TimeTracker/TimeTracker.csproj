@@ -10,9 +10,17 @@
 
   <ItemGroup>
     <Compile Remove="app\**" />
+    <Compile Remove="cd\**" />
+    <Compile Remove="Repositories\NewFolder\**" />
     <Content Remove="app\**" />
+    <Content Remove="cd\**" />
+    <Content Remove="Repositories\NewFolder\**" />
     <EmbeddedResource Remove="app\**" />
+    <EmbeddedResource Remove="cd\**" />
+    <EmbeddedResource Remove="Repositories\NewFolder\**" />
     <None Remove="app\**" />
+    <None Remove="cd\**" />
+    <None Remove="Repositories\NewFolder\**" />
   </ItemGroup>
 
 
@@ -43,6 +51,5 @@
 
   <ItemGroup>
     <Folder Include="app\dist\" />
-    <Folder Include="Repositories\NewFolder\" />
   </ItemGroup>
 </Project>

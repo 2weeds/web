@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.Models;
-using TimeTracker.Models.TeamModels;
+using TimeTracker.Models.ProjectModels;
+using System.Data.Common;
 
 namespace TimeTracker.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        public DbSet<Team> Teams { get; set; }
-
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Timer> Timers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

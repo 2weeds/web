@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TimeTracker.Models.TeamModels
+namespace TimeTracker.Models.ProjectModels
 {
-    public class Team
+    public class ProjectMember
     {
-
         [Key]
         public string Id { get; set; }
-
-        public string Title { get; set; }
+        public string UserId { get; set; }
+        public string ProjectId { get; set; }
+        public int MemberRole { get; set; }
     }
 }
