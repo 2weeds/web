@@ -12,6 +12,11 @@ using Microsoft.Extensions.Logging;
 using TimeTracker.Data;
 using TimeTracker.Models;
 using TimeTracker.Services;
+using TimeTracker.Repositories.Interfacies;
+using TimeTracker.Repositories;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 //using MySql.Data.
 
 namespace TimeTracker
@@ -64,6 +69,7 @@ namespace TimeTracker
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ITeamRepository, TeamRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +103,12 @@ namespace TimeTracker
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), @"app", "dist")),
+                RequestPath = new PathString("/a")
+            });
 
         }
     }

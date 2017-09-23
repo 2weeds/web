@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TimeTracker.Repositories.Interfacies;
 
 namespace TimeTracker.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITeamRepository repository;
+
+        public HomeController(ITeamRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public IActionResult Index()
         {
             return View();

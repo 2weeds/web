@@ -4,7 +4,16 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <UserSecretsId>aspnet-TimeTracker-8ED88907-ED0F-4C85-8878-1860B29F33C8</UserSecretsId>
+    <StartupObject>TimeTracker.Program</StartupObject>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="app\**" />
+    <Content Remove="app\**" />
+    <EmbeddedResource Remove="app\**" />
+    <None Remove="app\**" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -33,7 +42,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="app\src\" />
+    <Folder Include="app\dist\" />
+    <Folder Include="Repositories\NewFolder\" />
   </ItemGroup>
 
 </Project>
