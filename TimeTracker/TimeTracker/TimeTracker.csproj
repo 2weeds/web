@@ -45,5 +45,4 @@
     <Folder Include="app\dist\" />
     <Folder Include="Repositories\NewFolder\" />
   </ItemGroup>
-
 </Project>
