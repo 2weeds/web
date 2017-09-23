@@ -17,6 +17,8 @@ using TimeTracker.Repositories;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using TimeTracker.Services.Interfaces;
+using TimeTracker.Repositories.Interfaces;
 //using MySql.Data.
 
 namespace TimeTracker
@@ -70,6 +72,8 @@ namespace TimeTracker
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<IProjectsRepository, ProjectsRepository>();
+            services.AddTransient<IProjectsService, ProjectsService>();
+            services.AddTransient<IProjectMembersRepository, ProjectMembersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

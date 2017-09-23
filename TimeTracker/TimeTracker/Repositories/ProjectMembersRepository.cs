@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,28 +32,49 @@ namespace TimeTracker.Repositories
 
         public bool Exists(string id)
         {
-            return false;
-            //dbContext.ProjectMembers.Any(p => p.Id == id);
+            return dbContext.ProjectMembers.Any(p => p.Id == id);
         }
 
         public ProjectMember Get(string id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return null;
+            }
+            return dbContext.ProjectMembers
+                .SingleOrDefault(pm => pm.Id == id);
         }
 
         public IEnumerable<ProjectMember> GetAll()
         {
-            throw new NotImplementedException();
+            return dbContext.ProjectMembers.ToList();
+        }
+
+        public bool ProjectUserWithRoleExists(string userId, string projectId, int role)
+        {
+            return dbContext.ProjectMembers.Any(pm => pm.UserId == userId && pm.ProjectId == projectId && pm.MemberRole == role);
         }
 
         public bool Remove(string id)
         {
-            throw new NotImplementedException();
+            var projectMember = dbContext.ProjectMembers.SingleOrDefault(pm => pm.Id == id);
+            dbContext.ProjectMembers.Remove(projectMember);
+            dbContext.SaveChanges();
+            return projectMember.Id == null;
         }
 
         public string Update(ProjectMember model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dbContext.Update(model);
+                dbContext.SaveChanges();
+                return model.Id;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return null;
+            }
         }
     }
 }

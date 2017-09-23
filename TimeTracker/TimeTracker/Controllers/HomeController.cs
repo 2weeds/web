@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TimeTracker.Repositories.Interfacies;
+using TimeTracker.Services.Interfaces;
 
 namespace TimeTracker.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProjectsRepository repository;
+        private readonly IProjectsService projectsService;
 
-        public HomeController(IProjectsRepository repository)
+        public HomeController(IProjectsService projectsService)
         {
-            this.repository = repository;
+            this.projectsService = projectsService;
         }
 
         public IActionResult Index()

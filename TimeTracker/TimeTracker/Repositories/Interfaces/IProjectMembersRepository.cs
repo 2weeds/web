@@ -8,6 +8,6 @@ namespace TimeTracker.Repositories.Interfaces
 {
     public interface IProjectMembersRepository : IBaseRepository<ProjectMember, string>
     {
-
+        bool ProjectUserWithRoleExists(string userId, string projectId, int role);
     }
 }

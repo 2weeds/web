@@ -55,7 +55,7 @@ namespace TimeTracker.Repositories
         {
             var project = dbContext.Projects.SingleOrDefault(m => m.Id == id);
             dbContext.Projects.Remove(project);
-            dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
             return project.Id == null;
         }
 
