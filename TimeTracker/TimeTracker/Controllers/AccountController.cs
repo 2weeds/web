@@ -451,6 +451,15 @@ namespace TimeTracker.Controllers
             return View();
         }
 
+        [HttpGet]
+        public List<SelectListItem> GetUsernamesWithId()
+        {
+            string currentUserId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            return _userManager.Users
+                .Where(u => u.Id != currentUserId)
+                .Select(u => new SelectListItem() { Text = u.UserName, Value = u.Id }).ToList();
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)

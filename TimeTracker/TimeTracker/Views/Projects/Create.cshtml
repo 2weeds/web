@@ -1,12 +1,14 @@
-@model TimeTracker.Models.ProjectModels.Project
+@model TimeTracker.Models.ProjectModels.ProjectCreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    //ViewData["Title"] = "Create";
 }
 
 <h2>Create</h2>
 
-<form asp-action="Create">
+<div id="main"></div>
+
+<!--<form asp-action="Create">
     <div class="form-horizontal">
         <h4>Project</h4>
         <hr />
@@ -23,12 +25,22 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+        
     </div>
-</form>
+</form> -->
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+
+<script type="text/javascript">
+    var projectCreateModel = @Html.Raw(Json.Serialize(Model));
+</script>
+
+<script src="~/a/b.entry.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

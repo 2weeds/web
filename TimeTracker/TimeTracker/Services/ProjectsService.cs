@@ -6,6 +6,10 @@ using TimeTracker.Services.Interfaces;
 using TimeTracker.Repositories.Interfacies;
 using TimeTracker.Models.ProjectModels;
 using TimeTracker.Repositories.Interfaces;
+using TimeTracker.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace TimeTracker.Services
 {
@@ -14,11 +18,16 @@ namespace TimeTracker.Services
 
         private readonly IProjectsRepository projectsRepository;
         private readonly IProjectMembersRepository projectMembersRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ProjectsService(IProjectsRepository projectsRepository, IProjectMembersRepository projectMembersRepository)
+        public ProjectsService(
+            IProjectsRepository projectsRepository, 
+            IProjectMembersRepository projectMembersRepository,
+            UserManager<ApplicationUser> userManager)
         {
             this.projectsRepository = projectsRepository;
             this.projectMembersRepository = projectMembersRepository;
+            this.userManager = userManager;
         }
 
         public string Add(Project model)
@@ -44,6 +53,17 @@ namespace TimeTracker.Services
         public IEnumerable<Project> GetAll()
         {
             return projectsRepository.GetAll();
+        }
+
+        public ProjectCreateModel GetProjectCreateModel(ClaimsPrincipal user)
+        {
+            string currentUserId = userManager.GetUserId(user);
+            return new ProjectCreateModel
+            {
+                UsernamesWithIds = userManager.Users
+                    .Where(u => u.Id != currentUserId)
+                    .Select(u => new SelectListItem() { Text = u.UserName, Value = u.Id }).ToList()
+            };
         }
 
         public bool Remove(string id)

@@ -12,13 +12,19 @@
   "dependencies": {
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
+    "@types/react-select": "^1.0.58",
+    "@types/react-tabs": "^1.0.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-select": "^1.0.0-rc.10",
+    "react-tabs": "^2.0.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.3",
+    "child_process": "^1.0.2",
+    "css-loader": "^0.28.7",
     "source-map-loader": "^0.2.1",
-    "typescript": "^2.5.2",
-    "child_process": "^1.0.2"
+    "style-loader": "^0.19.0",
+    "typescript": "^2.5.2"
   }
 }

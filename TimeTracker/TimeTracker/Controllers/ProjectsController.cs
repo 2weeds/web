@@ -8,23 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using TimeTracker.Data;
 using TimeTracker.Models.ProjectModels;
 using TimeTracker.Repositories.Interfacies;
+using TimeTracker.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace TimeTracker.Controllers
 {
     public class ProjectsController : Controller
     {
 
-        private readonly IProjectsRepository projectsRepository;
+        private readonly IProjectsService projectsService;
 
-        public ProjectsController(IProjectsRepository projectsRepository)
+        public ProjectsController(IProjectsService projectsService)
         {
-            this.projectsRepository = projectsRepository;
+            this.projectsService = projectsService;
         }
 
         // GET: Projects
         public IActionResult Index()
         {
-            return View(projectsRepository.GetAll());
+            return View(projectsService.GetAll());
         }
 
         // GET: Projects/Details/5
@@ -35,7 +37,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsRepository.Get(id);
+            var project = projectsService.Get(id);
             if (project == null)
             {
                 return NotFound();
@@ -47,7 +49,7 @@ namespace TimeTracker.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            return View();
+            return View(projectsService.GetProjectCreateModel(HttpContext.User));
         }
 
         // POST: Projects/Create
@@ -59,7 +61,7 @@ namespace TimeTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                projectsRepository.Add(project);
+                projectsService.Add(project);
                 return RedirectToAction("Index");
             }
             return View(project);
@@ -73,7 +75,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsRepository.Get(id);
+            var project = projectsService.Get(id);
             if (project == null)
             {
                 return NotFound();
@@ -95,10 +97,10 @@ namespace TimeTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                string maybeId = projectsRepository.Update(project);
+                string maybeId = projectsService.Update(project);
                 if (maybeId == null)
                 {
-                    if (!projectsRepository.Exists(project.Id))
+                    if (!projectsService.Exists(project.Id))
                     {
                         return NotFound();
                     } else
@@ -119,7 +121,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsRepository.Get(id);
+            var project = projectsService.Get(id);
             if (project == null)
             {
                 return NotFound();
@@ -133,7 +135,7 @@ namespace TimeTracker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(string id)
         {
-            projectsRepository.Remove(id);
+            projectsService.Remove(id);
             return RedirectToAction("Index");
         }
 

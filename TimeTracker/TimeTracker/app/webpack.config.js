@@ -3,7 +3,7 @@ module.exports = {
     //entry: "./src/index.tsx",
     entry: {
         a: "./src/a.tsx",
-        b: "./src/b.tsx"
+        b: "./src/project-component.tsx"
     },
     output: {
         path: path.join(__dirname, "dist"),
@@ -15,7 +15,7 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".json", ".css"],
     },
 
     module: {
@@ -24,7 +24,8 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }, 
+            { test: /\.css$/, loader: ['style-loader', 'css-loader'] }
         ]
     },
 
