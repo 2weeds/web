@@ -10,9 +10,11 @@ using TimeTracker.Models.ProjectModels;
 using TimeTracker.Repositories.Interfacies;
 using TimeTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TimeTracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
 
@@ -56,15 +58,19 @@ namespace TimeTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Title")] Project project)
+//        [ValidateAntiForgeryToken]
+        public JsonResult Create([FromBody]Project a)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(a.Title))
             {
-                projectsService.Add(project);
-                return RedirectToAction("Index");
+                return new JsonResult(new { message = "ProjectTitleMissing" });
             }
-            return View(project);
+            if (projectsService.GetAll().Any(p => p.Title == a.Title))
+            {
+                return new JsonResult(new { message = "ProjectTitleNotUnique" });
+            }
+            string newProjectId = projectsService.Add(a);
+            return new JsonResult(new{ projectId = newProjectId });
         }
 
         // GET: Projects/Edit/5

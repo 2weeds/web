@@ -8,6 +8,6 @@ namespace TimeTracker.Models.ProjectModels
 {
     public class ProjectCreateModel
     {
-        public List<SelectListItem> UsernamesWithIds { get; set; }
+        public List<ReactSelectListItem> UsernamesWithIds { get; set; }
     }
 }

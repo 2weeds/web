@@ -51,5 +51,6 @@
 
   <ItemGroup>
     <Folder Include="app\dist\" />
+    <Folder Include="app\src\" />
   </ItemGroup>
 </Project>

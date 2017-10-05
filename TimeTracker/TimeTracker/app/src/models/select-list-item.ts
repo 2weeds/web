@@ -1,4 +1,4 @@
 export interface SelectListItem {
-    Value: string,
-    Text: string
+    value: string,
+    label: string
 }

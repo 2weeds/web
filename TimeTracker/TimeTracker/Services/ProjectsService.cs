@@ -62,7 +62,7 @@ namespace TimeTracker.Services
             {
                 UsernamesWithIds = userManager.Users
                     .Where(u => u.Id != currentUserId)
-                    .Select(u => new SelectListItem() { Text = u.UserName, Value = u.Id }).ToList()
+                    .Select(u => new ReactSelectListItem() { label = u.UserName, value = u.Id }).ToList()
             };
         }
 

@@ -14,6 +14,11 @@ export interface IProjectTabsComponentProps extends IProjectMembersComponentProp
 }
 
 export default class ProjectTabsComponent extends React.Component<IProjectTabsComponentProps, any> {
+
+    private allowAddingMembers(projectId: string) {
+
+    }
+
     render(){
         return (
             <Tabs>
@@ -26,7 +31,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     </Tab>
                 </TabList>
                 <TabPanel>
-                    <MainProjectInfoComponent />
+                    <MainProjectInfoComponent projectNameSaved={this.allowAddingMembers.bind(this)} />
                 </TabPanel>
                 <TabPanel>
                     <ProjectMembersComponent projectCreateModel={this.props.projectCreateModel} />
