@@ -16,6 +16,7 @@ namespace TimeTracker.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Timer> Timers { get; set; }
         public DbSet<ProjectMember> ProjectMembers { get; set; }
+        public DbSet<ProjectMemberAction> ProjectMemberActions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

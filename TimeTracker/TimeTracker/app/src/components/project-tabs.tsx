@@ -10,6 +10,8 @@ import ProjectMembersComponent from "./project/project-members-component";
 import { Project } from "../models/projects/project";
 import request from 'axios';
 import { IProjectComponentProps } from "./project/project-component-props";
+import ProjectMemberActionsComponent from "./project/project-member-actions-component";
+import { ProjectMemberAction } from "../models/projects/project-member-action";
 
 export interface IProjectTabsComponentProps {
     project: Project,
@@ -67,9 +69,20 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
 
     render() {
 
+        const currentProject = this.state.project;
+
+        if (currentProject.projectMemberIds != null && currentProject.projectMemberActions.length == 0) {
+            const fakeMemberAction: ProjectMemberAction = {
+                id: "",
+                description: "",
+                projectMemberId: ""
+            };
+            currentProject.projectMemberActions.push(fakeMemberAction);
+        }
+
         const componentProps: IProjectComponentProps = {
             projectSaved: this.allowAddingMembers.bind(this),
-            project: this.state.project,
+            project: currentProject,
             projectChanged: this.projectChanged.bind(this)
         };
 
@@ -77,10 +90,13 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
             <Tabs>
                 <TabList>
                     <Tab>
-                        Create Project
+                        Title
                      </Tab>
                     <Tab disabled={this.state.project.id == null}>
-                        Add members
+                        Members
+                    </Tab>
+                    <Tab disabled={this.state.project.projectMemberIds == null}>
+                        Actions
                     </Tab>
                 </TabList>
                 <TabPanel>
@@ -88,6 +104,9 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                 </TabPanel>
                 <TabPanel>
                     <ProjectMembersComponent {...componentProps} />
+                </TabPanel>
+                <TabPanel>
+                    <ProjectMemberActionsComponent {...componentProps} />
                 </TabPanel>
             </Tabs>
         );

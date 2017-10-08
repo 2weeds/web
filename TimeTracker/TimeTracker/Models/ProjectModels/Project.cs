@@ -18,9 +18,11 @@ namespace TimeTracker.Models.ProjectModels
         [NotMapped]
         public List<ReactSelectListItem> ProjectMemberIds { get; set; }
 
-        public virtual IEnumerable<ProjectMember> ProjectMembers { get; set; }
-
         [NotMapped]
         public List<ReactSelectListItem> UsernamesWithIds { get; set; }
+
+        [NotMapped]
+        public List<ProjectMemberAction> ProjectMemberActions { get; set; } = new List<ProjectMemberAction>();
+
     }
 }
