@@ -6,8 +6,10 @@ using TimeTracker.Models.ProjectModels;
 
 namespace TimeTracker.Repositories.Interfaces
 {
-    interface IProjectMemberActionRepository : IBaseRepository<ProjectMemberAction, string>
+    public interface IProjectMemberActionRepository : IBaseRepository<ProjectMemberAction, string>
     {
         List<ProjectMemberAction> GetProjectMemberActions(string projectMemberId);
+        bool UpdateProjectMemberActionsForMember(string projectMemberId, List<ProjectMemberAction> projectMemberActions);
+        bool RemoveActionsOfProjectMember(string projectMemberId);
     }
 }

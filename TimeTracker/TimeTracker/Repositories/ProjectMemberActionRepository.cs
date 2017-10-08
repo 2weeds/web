@@ -63,6 +63,20 @@ namespace TimeTracker.Repositories
             return projectMemberAction.Id == null;
         }
 
+        public bool RemoveActionsOfProjectMember(string projectMemberId)
+        {
+            List<ProjectMemberAction> actionsOfProjectMember = GetProjectMemberActions(projectMemberId);
+            dbContext.ProjectMemberActions.RemoveRange(actionsOfProjectMember);
+            try
+            {
+                dbContext.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
         public string Update(ProjectMemberAction model)
         {
             try
@@ -74,6 +88,45 @@ namespace TimeTracker.Repositories
             catch (DbUpdateConcurrencyException)
             {
                 return null;
+            }
+        }
+
+        public bool UpdateProjectMemberActionsForMember(string projectMemberId, List<ProjectMemberAction> projectMemberActions)
+        {
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                List<ProjectMemberAction> previousActions =
+                    GetProjectMemberActions(projectMemberId);
+                if (previousActions.Count > 0 && projectMemberActions.Count == 0)
+                {
+                    dbContext.RemoveRange(previousActions);
+                } else if (projectMemberActions.Count > 0)
+                {
+                    List<ProjectMemberAction> deletedProjectActions = previousActions
+                        .Where(pa => !projectMemberActions.Any(pma => pma.Id == pa.Id)).ToList();
+                    dbContext.RemoveRange(deletedProjectActions);
+                    List<ProjectMemberAction> actionsToInsert = projectMemberActions
+                        .Where(pma => !deletedProjectActions.Any(dpa => pma.Id == dpa.Id))
+                        .Select(ati => new ProjectMemberAction
+                        {
+                            Description = ati.Description,
+                            ProjectMemberId = projectMemberId
+                        }).ToList();
+                    foreach (ProjectMemberAction action in projectMemberActions)
+                    {
+                        dbContext.ProjectMemberActions.Add(action);
+                    }
+                }
+                try
+                {
+                    dbContext.SaveChanges();
+                    transaction.Commit();
+                    return true;
+                } catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
             }
         }
     }

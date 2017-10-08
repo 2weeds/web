@@ -81,6 +81,8 @@ namespace TimeTracker
             services.AddTransient<IProjectsRepository, ProjectsRepository>();
             services.AddTransient<IProjectsService, ProjectsService>();
             services.AddTransient<IProjectMembersRepository, ProjectMembersRepository>();
+            services.AddTransient<IProjectMemberActionRepository, ProjectMemberActionRepository>();
+            services.AddTransient<IProjectMembersService, ProjectMembersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

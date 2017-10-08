@@ -71,8 +71,7 @@ namespace TimeTracker.Repositories
 
         public bool RemoveMembersOfProject(string projectId)
         {
-            List<ProjectMember> membersOfProjects =
-                dbContext.ProjectMembers.Where(pm => pm.ProjectId == projectId).ToList();
+            List<ProjectMember> membersOfProjects = GetProjectMembersOfProject(projectId);
             dbContext.ProjectMembers.RemoveRange(membersOfProjects);
             try
             {
@@ -102,8 +101,7 @@ namespace TimeTracker.Repositories
         {
             using (var transaction = dbContext.Database.BeginTransaction())
             {
-                List<ProjectMember> previousProjectMembers =
-                    dbContext.ProjectMembers.Where(pm => pm.ProjectId == projectId).ToList();
+                List<ProjectMember> previousProjectMembers = GetProjectMembersOfProject(projectId);
                 if (previousProjectMembers.Count > 0 && projectMemberIds == null)
                 {
                     dbContext.RemoveRange(previousProjectMembers);

@@ -17,16 +17,16 @@ namespace TimeTracker.Services
     {
 
         private readonly IProjectsRepository projectsRepository;
-        private readonly IProjectMembersRepository projectMembersRepository;
+        private readonly IProjectMembersService projectMembersService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public ProjectsService(
             IProjectsRepository projectsRepository,
-            IProjectMembersRepository projectMembersRepository,
+            IProjectMembersService projectMembersService,
             UserManager<ApplicationUser> userManager)
         {
             this.projectsRepository = projectsRepository;
-            this.projectMembersRepository = projectMembersRepository;
+            this.projectMembersService = projectMembersService;
             this.userManager = userManager;
         }
 
@@ -37,7 +37,7 @@ namespace TimeTracker.Services
 
         public bool CanUserRemoveMember(string userId, string projectId)
         {
-            return projectMembersRepository.ProjectUserWithRoleExists(userId, projectId, 1);
+            return projectMembersService.ProjectUserWithRoleExists(userId, projectId, 1);
         }
 
         public bool Exists(string id)
@@ -66,7 +66,7 @@ namespace TimeTracker.Services
                 return allUserSelectItems;
             }
             List<ReactSelectListItem> projectMembers =
-                projectMembersRepository.GetProjectMembersOfProject(projectId)
+                projectMembersService.GetProjectMembersOfProject(projectId)
                 .Select(pm => new ReactSelectListItem
                 {
                     label = allUserSelectItems.FirstOrDefault(pcm => pcm.value == pm.UserId).label,
@@ -77,8 +77,8 @@ namespace TimeTracker.Services
 
         public bool Remove(string id)
         {
-            bool removalSuccessful = projectMembersRepository.RemoveMembersOfProject(id);
-            if (removalSuccessful)
+            bool projectMembersRemovalSuccessful = projectMembersService.RemoveMembersOfProject(id);
+            if (projectMembersRemovalSuccessful)
             {
                 return projectsRepository.Remove(id);
             }
@@ -87,7 +87,7 @@ namespace TimeTracker.Services
 
         public string Update(Project model)
         {
-            if (projectMembersRepository.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds))
+            if (projectMembersService.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds))
             {
                 return projectsRepository.Update(model);
             }
