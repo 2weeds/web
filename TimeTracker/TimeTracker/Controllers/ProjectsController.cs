@@ -51,14 +51,14 @@ namespace TimeTracker.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            return View(projectsService.GetProjectCreateModel(HttpContext.User));
+            return View(new Project { UsernamesWithIds = projectsService.GetProjectCreateModel(null, HttpContext.User) });
         }
 
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-//        [ValidateAntiForgeryToken]
+        //        [ValidateAntiForgeryToken]
         public JsonResult Create([FromBody]Project a)
         {
             if (string.IsNullOrEmpty(a.Title))
@@ -70,7 +70,8 @@ namespace TimeTracker.Controllers
                 return new JsonResult(new { message = "ProjectTitleNotUnique" });
             }
             string newProjectId = projectsService.Add(a);
-            return new JsonResult(new{ projectId = newProjectId });
+            a.Id = newProjectId;
+            return new JsonResult(a);
         }
 
         // GET: Projects/Edit/5
@@ -86,6 +87,8 @@ namespace TimeTracker.Controllers
             {
                 return NotFound();
             }
+            project.ProjectMemberIds = projectsService.GetProjectCreateModel(project.Id, HttpContext.User);
+            project.UsernamesWithIds = projectsService.GetProjectCreateModel(null, HttpContext.User);
             return View(project);
         }
 
@@ -93,30 +96,23 @@ namespace TimeTracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, [Bind("Id,Title")] Project project)
+        public JsonResult Edit([FromBody]Project project)
         {
-            if (id != project.Id)
+            string maybeId = projectsService.Update(project);
+            if (maybeId == null)
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                string maybeId = projectsService.Update(project);
-                if (maybeId == null)
+                if (!projectsService.Exists(project.Id))
                 {
-                    if (!projectsService.Exists(project.Id))
-                    {
-                        return NotFound();
-                    } else
-                    {
-                        throw new Exception();
-                    }
+                    return new JsonResult(new { message = "ProjectNotExists" });
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    return new JsonResult(new { message = "ExceptionWasRaised" });
+                }
             }
-            return View(project);
+            project.ProjectMemberIds = projectsService.GetProjectCreateModel(project.Id, HttpContext.User);
+            project.UsernamesWithIds = projectsService.GetProjectCreateModel(null, HttpContext.User);
+            return new JsonResult(project);
         }
 
         // GET: Projects/Delete/5
@@ -138,7 +134,6 @@ namespace TimeTracker.Controllers
 
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(string id)
         {
             projectsService.Remove(id);

@@ -63,7 +63,9 @@ namespace TimeTracker.Repositories
         {
             try
             {
-                dbContext.Update(model);
+                Project project = Get(model.Id);
+                dbContext.Projects.Attach(project);
+                project.Title = model.Title;
                 dbContext.SaveChanges();
                 return model.Id;
             }

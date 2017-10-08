@@ -1,50 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import request from 'axios';
+import { Project } from "../../models/projects/project";
+import { IProjectComponentProps } from "./project-component-props";
 
-export interface IMainProjectInfoComponentProps {
-    projectNameSaved(projectId: string): void;
-}
-
-export interface IMainProjectInfoComponentState {
-    projectName: string
-}
-
-export default class MainProjectInfoComponent extends React.Component<IMainProjectInfoComponentProps, IMainProjectInfoComponentState> {
-
-    constructor() {
-        super();
-        this.state = {
-            projectName: ""
-        };
-    }
+export default class MainProjectInfoComponent extends React.Component<IProjectComponentProps, any> {
 
     private projectNameChanged(newProjectName: any) {
-        this.setState({
-            projectName: newProjectName.target.value
-        });
+        console.log("projectNameChanged", newProjectName.target.value);
+        const newProject: Project = this.props.project;
+        newProject.title = newProjectName.target.value;
+        this.props.projectChanged(newProject);
     }
 
     private saveProject() {
-        const projectName = this.state.projectName;
-        const config: any = {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        };
-        if (projectName.length > 0) {
-            const projectToPost = {
-                    'Title': projectName
-            };
-            console.log("payload:", { "Title": projectName } );
-            request.post('/Projects/Create', JSON.stringify(projectToPost), config)
-                .then((response: any) => {
-                    console.log("response is: ", response);
-                })
-                .catch((response: any) => {
-                    console.log("error response: ", response);
-                });
-        }
+        this.props.projectSaved(this.props.project);
     }
 
     render() {
@@ -57,7 +26,7 @@ export default class MainProjectInfoComponent extends React.Component<IMainProje
                         type="text"
                         className="form-control"
                         id="ProjectName"
-                        value={this.state.projectName}
+                        value={this.props.project.title}
                         onChange={this.projectNameChanged.bind(this)} />
                     <br />
                     <button

@@ -21,7 +21,7 @@ namespace TimeTracker.Services
         private readonly UserManager<ApplicationUser> userManager;
 
         public ProjectsService(
-            IProjectsRepository projectsRepository, 
+            IProjectsRepository projectsRepository,
             IProjectMembersRepository projectMembersRepository,
             UserManager<ApplicationUser> userManager)
         {
@@ -55,25 +55,43 @@ namespace TimeTracker.Services
             return projectsRepository.GetAll();
         }
 
-        public ProjectCreateModel GetProjectCreateModel(ClaimsPrincipal user)
+        public List<ReactSelectListItem> GetProjectCreateModel(string projectId, ClaimsPrincipal user)
         {
             string currentUserId = userManager.GetUserId(user);
-            return new ProjectCreateModel
+            List<ReactSelectListItem> allUserSelectItems = userManager.Users
+                .Where(u => u.Id != currentUserId)
+                .Select(u => new ReactSelectListItem() { label = u.UserName, value = u.Id }).ToList();
+            if (projectId == null)
             {
-                UsernamesWithIds = userManager.Users
-                    .Where(u => u.Id != currentUserId)
-                    .Select(u => new ReactSelectListItem() { label = u.UserName, value = u.Id }).ToList()
-            };
+                return allUserSelectItems;
+            }
+            List<ReactSelectListItem> projectMembers =
+                projectMembersRepository.GetProjectMembersOfProject(projectId)
+                .Select(pm => new ReactSelectListItem
+                {
+                    label = allUserSelectItems.FirstOrDefault(pcm => pcm.value == pm.UserId).label,
+                    value = pm.UserId
+                }).ToList();
+            return projectMembers;
         }
 
         public bool Remove(string id)
         {
-            return projectsRepository.Remove(id);
+            bool removalSuccessful = projectMembersRepository.RemoveMembersOfProject(id);
+            if (removalSuccessful)
+            {
+                return projectsRepository.Remove(id);
+            }
+            return false;
         }
 
         public string Update(Project model)
         {
-            return projectsRepository.Update(model);
+            if (projectMembersRepository.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds))
+            {
+                return projectsRepository.Update(model);
+            }
+            return string.Empty;
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
 import ProjectTabsComponent from "./components/project-tabs";
-import { ProjectCreateModel } from "./models/projects/project-create-model";
+import { Project } from "./models/projects/project";
 
-declare var projectCreateModel: ProjectCreateModel;
+declare var project: Project;
 
 ReactDOM.render(
-    <ProjectTabsComponent projectCreateModel={projectCreateModel} />,
+    <ProjectTabsComponent project={project} />,
     document.getElementById("main")
 );

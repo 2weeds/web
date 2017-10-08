@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeTracker.Data;
+using TimeTracker.Models;
 using TimeTracker.Models.ProjectModels;
 using TimeTracker.Repositories.Interfaces;
 
@@ -50,6 +51,11 @@ namespace TimeTracker.Repositories
             return dbContext.ProjectMembers.ToList();
         }
 
+        public List<ProjectMember> GetProjectMembersOfProject(string projectId)
+        {
+            return GetAll().Where(pm => pm.ProjectId == projectId).ToList();
+        }
+
         public bool ProjectUserWithRoleExists(string userId, string projectId, int role)
         {
             return dbContext.ProjectMembers.Any(pm => pm.UserId == userId && pm.ProjectId == projectId && pm.MemberRole == role);
@@ -63,6 +69,21 @@ namespace TimeTracker.Repositories
             return projectMember.Id == null;
         }
 
+        public bool RemoveMembersOfProject(string projectId)
+        {
+            List<ProjectMember> membersOfProjects =
+                dbContext.ProjectMembers.Where(pm => pm.ProjectId == projectId).ToList();
+            dbContext.ProjectMembers.RemoveRange(membersOfProjects);
+            try
+            {
+                dbContext.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
         public string Update(ProjectMember model)
         {
             try
@@ -74,6 +95,48 @@ namespace TimeTracker.Repositories
             catch (DbUpdateConcurrencyException)
             {
                 return null;
+            }
+        }
+
+        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds)
+        {
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                List<ProjectMember> previousProjectMembers =
+                    dbContext.ProjectMembers.Where(pm => pm.ProjectId == projectId).ToList();
+                if (previousProjectMembers.Count > 0 && projectMemberIds == null)
+                {
+                    dbContext.RemoveRange(previousProjectMembers);
+                } else if (projectMemberIds != null)
+                {
+                    List<ProjectMember> deletedProjectMembers = previousProjectMembers
+                        .Where(ppm => !projectMemberIds.Any(pmi => pmi.value == ppm.Id)).ToList();
+                    dbContext.RemoveRange(deletedProjectMembers);
+                    List<ProjectMember> projectMembersToInsert = projectMemberIds
+                        .Where(pmi => !deletedProjectMembers.Any(dpm => dpm.Id == pmi.value))
+                        .Select(newId =>
+                           new ProjectMember
+                            {
+                                MemberRole = 1,
+                                ProjectId = projectId,
+                                UserId = newId.value
+                            }
+                        ).ToList();
+                    foreach (ProjectMember projectMember in projectMembersToInsert)
+                    {
+                        dbContext.ProjectMembers.Add(projectMember);
+                    }
+                }
+                try
+                {
+                    dbContext.SaveChanges();
+                    transaction.Commit();
+                    return true;
+                } catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
             }
         }
     }

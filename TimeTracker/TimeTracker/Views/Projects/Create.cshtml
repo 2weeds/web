@@ -1,4 +1,5 @@
-@model TimeTracker.Models.ProjectModels.ProjectCreateModel
+@using Newtonsoft.Json;
+@model TimeTracker.Models.ProjectModels.Project
 
 @{
     //ViewData["Title"] = "Create";
@@ -37,7 +38,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 
 <script type="text/javascript">
-    var projectCreateModel = @Html.Raw(Json.Serialize(Model));
+    var project = @Html.Raw(Json.Serialize(Model,
+                   new JsonSerializerSettings
+                   {
+                       ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                   }));
 </script>
 
 <script src="~/a/b.entry.js"></script>

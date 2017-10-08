@@ -1,32 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ProjectCreateModel } from "../../models/projects/project-create-model";
+import { Project } from "../../models/projects/project";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 import { SelectListItem } from "../../models/select-list-item";
+import { IProjectComponentProps } from "./project-component-props";
 
-export interface IProjectMembersComponentProps {
-    projectCreateModel: ProjectCreateModel
-}
-
-export interface IProjectMembersComponentState {
-    values: SelectListItem[];
-}
-
-export default class ProjectMembersComponent extends React.Component<IProjectMembersComponentProps, IProjectMembersComponentState> {
-
-    constructor(props: IProjectMembersComponentProps) {
-        super(props);
-        console.log("received props: ", props.projectCreateModel);
-        this.state = {
-            values: []
-        };
-    }
+export default class ProjectMembersComponent extends React.Component<IProjectComponentProps, any> {
 
     private valuesChanged(val: any) {
-        this.setState({
-            values: val
-        });
+        const stateProject = this.props.project;
+        stateProject.projectMemberIds = val;
+        this.props.projectChanged(stateProject);
+    }
+
+    private saveChanges() {
+        this.props.projectSaved(this.props.project);
     }
 
     render() {
@@ -37,13 +26,13 @@ export default class ProjectMembersComponent extends React.Component<IProjectMem
                         <label>Please pick project members</label>
                         <Select
                             name="UserIds"
-                            options={this.props.projectCreateModel.usernamesWithIds}
+                            options={this.props.project.usernamesWithIds}
                             multi={true}
-                            value={this.state.values}
+                            value={this.props.project.projectMemberIds}
                             onChange={this.valuesChanged.bind(this)}
                         />
-                        <br/>
-                        <button type="button" className="btn btn-default">Save</button>
+                        <br />
+                        <button type="button" className="btn btn-default" onClick={this.saveChanges.bind(this)}>Save</button>
                     </div>
                 </div>
             </div>

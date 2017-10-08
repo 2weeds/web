@@ -19,6 +19,10 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using TimeTracker.Services.Interfaces;
 using TimeTracker.Repositories.Interfaces;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Buffers;
+using Newtonsoft.Json.Serialization;
 //using MySql.Data.
 
 namespace TimeTracker
@@ -66,7 +70,10 @@ namespace TimeTracker
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
