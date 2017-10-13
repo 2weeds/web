@@ -22,7 +22,7 @@ namespace TimeTracker.Models.ProjectModels
         public List<ReactSelectListItem> UsernamesWithIds { get; set; }
 
         [NotMapped]
-        public List<ProjectMemberAction> ProjectMemberActions { get; set; } = new List<ProjectMemberAction>();
+        public List<ProjectMember> ProjectMembers { get; set; }
 
     }
 }

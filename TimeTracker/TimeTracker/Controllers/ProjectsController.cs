@@ -69,8 +69,9 @@ namespace TimeTracker.Controllers
             {
                 return new JsonResult(new { message = "ProjectTitleNotUnique" });
             }
-            string newProjectId = projectsService.Add(a);
+            string newProjectId = projectsService.Add(a, HttpContext.User);
             a.Id = newProjectId;
+            
             return new JsonResult(a);
         }
 
@@ -82,7 +83,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsService.Get(id);
+            var project = projectsService.Get(id, HttpContext.User);
             if (project == null)
             {
                 return NotFound();
@@ -98,7 +99,7 @@ namespace TimeTracker.Controllers
         [HttpPost]
         public JsonResult Edit([FromBody]Project project)
         {
-            string maybeId = projectsService.Update(project);
+            string maybeId = projectsService.Update(project, HttpContext.User);
             if (maybeId == null)
             {
                 if (!projectsService.Exists(project.Id))
@@ -123,7 +124,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsService.Get(id);
+            var project = projectsService.Get(id, HttpContext.User);
             if (project == null)
             {
                 return NotFound();

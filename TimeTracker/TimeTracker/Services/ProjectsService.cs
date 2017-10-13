@@ -35,6 +35,17 @@ namespace TimeTracker.Services
             return projectsRepository.Add(model);
         }
 
+        public string Add(Project project, ClaimsPrincipal user)
+        {
+            string projectId = Add(project);
+            string projectMemberId = projectMembersService.AddInitialUser(projectId, user);
+            if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(projectMemberId))
+            {
+                return projectId;
+            }
+            return string.Empty;
+        }
+
         public bool CanUserRemoveMember(string userId, string projectId)
         {
             return projectMembersService.ProjectUserWithRoleExists(userId, projectId, 1);
@@ -47,7 +58,25 @@ namespace TimeTracker.Services
 
         public Project Get(string id)
         {
-            return projectsRepository.Get(id);
+            Project project = projectsRepository.Get(id);
+            if (project != null)
+            {
+                project.ProjectMembers = projectMembersService.GetProjectMembersOfProject(id);
+            }
+            return project;
+        }
+
+        public Project Get(string projectId, ClaimsPrincipal user)
+        {
+            Project project = Get(projectId);
+            if (project != null)
+            {
+                string currentUserId = userManager.GetUserId(user);
+                project.ProjectMembers.Where(pm => pm.UserId == currentUserId)
+                    .ToList().ForEach(pm => pm.IsCurrentUser = true);
+            }
+            return project;
+            
         }
 
         public IEnumerable<Project> GetAll()
@@ -67,6 +96,7 @@ namespace TimeTracker.Services
             }
             List<ReactSelectListItem> projectMembers =
                 projectMembersService.GetProjectMembersOfProject(projectId)
+                .Where(pm => pm.UserId != currentUserId)
                 .Select(pm => new ReactSelectListItem
                 {
                     label = allUserSelectItems.FirstOrDefault(pcm => pcm.value == pm.UserId).label,
@@ -85,13 +115,18 @@ namespace TimeTracker.Services
             return false;
         }
 
-        public string Update(Project model)
+        public string Update(Project model, ClaimsPrincipal principal)
         {
-            if (projectMembersService.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds))
+            if (projectMembersService.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds, principal))
             {
                 return projectsRepository.Update(model);
             }
             return string.Empty;
+        }
+
+        public string Update(Project model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

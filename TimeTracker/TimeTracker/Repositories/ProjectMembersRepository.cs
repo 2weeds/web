@@ -97,11 +97,12 @@ namespace TimeTracker.Repositories
             }
         }
 
-        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds)
+        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds, string currentUserId)
         {
             using (var transaction = dbContext.Database.BeginTransaction())
             {
-                List<ProjectMember> previousProjectMembers = GetProjectMembersOfProject(projectId);
+                List<ProjectMember> previousProjectMembers = GetProjectMembersOfProject(projectId)
+                    .Where(ppm => ppm.UserId != currentUserId).ToList();
                 if (previousProjectMembers.Count > 0 && projectMemberIds == null)
                 {
                     dbContext.RemoveRange(previousProjectMembers);

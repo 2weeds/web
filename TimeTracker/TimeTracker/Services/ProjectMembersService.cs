@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TimeTracker.Models;
 using TimeTracker.Models.ProjectModels;
@@ -14,17 +16,31 @@ namespace TimeTracker.Services
 
         private readonly IProjectMembersRepository projectMembersRepository;
         private readonly IProjectMemberActionRepository projectMemberActionsRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public ProjectMembersService(IProjectMembersRepository projectMembersRepository,
-            IProjectMemberActionRepository projectMemberActionsRepository)
+            IProjectMemberActionRepository projectMemberActionsRepository,
+            UserManager<ApplicationUser> userManager)
         {
             this.projectMembersRepository = projectMembersRepository;
             this.projectMemberActionsRepository = projectMemberActionsRepository;
+            this.userManager = userManager;
         }
 
         public string Add(ProjectMember model)
         {
             return projectMembersRepository.Add(model);
+        }
+
+        public string AddInitialUser(string projectId, ClaimsPrincipal user)
+        {
+            ProjectMember projectMember = new ProjectMember
+            {
+                MemberRole = 1,
+                ProjectId = projectId,
+                UserId = userManager.GetUserId(user)
+            };
+            return Add(projectMember);
         }
 
         public bool Exists(string id)
@@ -34,7 +50,13 @@ namespace TimeTracker.Services
 
         public ProjectMember Get(string id)
         {
-            return projectMembersRepository.Get(id);
+            ProjectMember projectMember = projectMembersRepository.Get(id);
+            if (projectMember != null)
+            {
+                projectMember.ProjectMemberActions =
+                    projectMemberActionsRepository.GetProjectMemberActions(id);
+            }
+            return projectMember;
         }
 
         public IEnumerable<ProjectMember> GetAll()
@@ -72,9 +94,10 @@ namespace TimeTracker.Services
             return projectMembersRepository.Update(model);
         }
 
-        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds)
+        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds, ClaimsPrincipal claimsPrincipal)
         {
-            return projectMembersRepository.UpdateProjectMembersForProject(projectId, projectMemberIds);
+            string currentUserId = userManager.GetUserId(claimsPrincipal);
+            return projectMembersRepository.UpdateProjectMembersForProject(projectId, projectMemberIds, currentUserId);
         }
     }
 }

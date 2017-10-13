@@ -15,5 +15,11 @@ namespace TimeTracker.Models.ProjectModels
         public string ProjectId { get; set; }
         public int MemberRole { get; set; }
 
+        [NotMapped]
+        public virtual List<ProjectMemberAction> ProjectMemberActions { get; set; }
+
+        [NotMapped]
+        public bool IsCurrentUser { get; set; }
+
     }
 }

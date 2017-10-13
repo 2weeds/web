@@ -3,18 +3,25 @@ import * as ReactDOM from "react-dom";
 import { IProjectComponentProps } from "./project-component-props";
 import { ProjectMemberAction } from "../../models/projects/project-member-action";
 
-export default class ProjectMemberActionsComponent extends React.Component<IProjectComponentProps, any> {
+export interface IProjectMemberActionsComponentProps extends IProjectComponentProps {
+    currentUserIndex: number
+}
+
+export default class ProjectMemberActionsComponent extends React.Component<IProjectMemberActionsComponentProps, any> {
 
     private inputChanged(index: number, val: any) {
         const currentProject = this.props.project;
-        currentProject.projectMemberActions[index].description = val.target.value;
+        console.log("bfr", currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description);
+        currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description = val.target.value;
+        console.log("after", currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description);
+        console.log("send this currentProject", currentProject.projectMembers[this.props.currentUserIndex]);
         this.props.projectChanged(currentProject);
     }
 
     private deleteRow(index: number) {
         const currentProject = this.props.project;
-        if (currentProject.projectMemberActions.length > 1) {
-            currentProject.projectMemberActions.splice(index, 1);
+        if (currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.length > 1) {
+            currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.splice(index, 1);
             this.props.projectChanged(currentProject);
         }
     }
@@ -26,7 +33,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
             projectMemberId: "",
         };
         const currentProject = this.props.project;
-        currentProject.projectMemberActions.push(newProjectMemberAction);
+        currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.push(newProjectMemberAction);
         this.props.projectChanged(currentProject);
     }
 
@@ -35,6 +42,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
     }
 
     render() {
+        console.log("re-render. received: ", this.props.project.projectMembers[this.props.currentUserIndex].projectMemberActions[0].description);
         return (
             <div>
                 <table className="table table-bordered table-hover table-responsive">
@@ -46,7 +54,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.project.projectMemberActions.map((item: ProjectMemberAction, index: number) => {
+                        {this.props.project.projectMembers[this.props.currentUserIndex].projectMemberActions.map((item: ProjectMemberAction, index: number) => {
                             return (
                                 <tr key={index}>
                                     <td>

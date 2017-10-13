@@ -12,6 +12,8 @@ import request from 'axios';
 import { IProjectComponentProps } from "./project/project-component-props";
 import ProjectMemberActionsComponent from "./project/project-member-actions-component";
 import { ProjectMemberAction } from "../models/projects/project-member-action";
+import { ProjectMember } from "../models/projects/project-member";
+import { IProjectMemberActionsComponentProps } from "./project/project-member-actions-component";
 
 export interface IProjectTabsComponentProps {
     project: Project,
@@ -62,6 +64,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
     }
 
     private projectChanged(newProject: Project) {
+        console.log("newProject", newProject);
         this.setState({
             project: newProject
         });
@@ -71,19 +74,38 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
 
         const currentProject = this.state.project;
 
-        if (currentProject.projectMemberIds != null && currentProject.projectMemberActions.length == 0) {
-            const fakeMemberAction: ProjectMemberAction = {
-                id: "",
+        let currentProjectMemberIndex: number = -1;
+
+        if (currentProject.projectMembers != null) {
+            currentProjectMemberIndex = currentProject.projectMembers.map((e, i) => {
+                if (e.isCurrentUser) {
+                    return i;
+                }
+            })[0];
+        }
+
+        if (currentProjectMemberIndex != null &&
+            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions == null) {
+
+            let fakeMemberAction: ProjectMemberAction = {
                 description: "",
-                projectMemberId: ""
+                projectMemberId: currentProject.projectMembers[currentProjectMemberIndex].id,
+                id: ""
             };
-            currentProject.projectMemberActions.push(fakeMemberAction);
+
+            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions = [];
+            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions.push(fakeMemberAction);
         }
 
         const componentProps: IProjectComponentProps = {
             projectSaved: this.allowAddingMembers.bind(this),
             project: currentProject,
             projectChanged: this.projectChanged.bind(this)
+        };
+
+        const projectMemberComponentProps: IProjectMemberActionsComponentProps = {
+            ...componentProps,
+            currentUserIndex: currentProjectMemberIndex
         };
 
         return (
@@ -106,7 +128,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     <ProjectMembersComponent {...componentProps} />
                 </TabPanel>
                 <TabPanel>
-                    <ProjectMemberActionsComponent {...componentProps} />
+                    <ProjectMemberActionsComponent {...projectMemberComponentProps} />
                 </TabPanel>
             </Tabs>
         );
