@@ -64,9 +64,20 @@ namespace TimeTracker.Services
             return projectMembersRepository.GetAll();
         }
 
-        public List<ProjectMember> GetProjectMembersOfProject(string projectId)
+        public List<ProjectMember> GetProjectMembersOfProject(string projectId, string currentUserId)
         {
-            return projectMembersRepository.GetProjectMembersOfProject(projectId);
+            List<ProjectMember> projectMembers = projectMembersRepository.GetProjectMembersOfProject(projectId);
+            projectMembers.ForEach(pm =>
+            {
+                if (pm.UserId == currentUserId)
+                {
+                    pm.IsCurrentUser = true;
+                }
+                List<ProjectMemberAction> projectMemberActions = projectMemberActionsRepository.GetProjectMemberActions(pm.Id);
+                projectMemberActions.Sort((first, second) => first.Description.CompareTo(second.Description));
+                pm.ProjectMemberActions = projectMemberActions;
+            });
+            return projectMembers;
         }
 
         public bool ProjectUserWithRoleExists(string userId, string projectId, int role)
@@ -91,13 +102,32 @@ namespace TimeTracker.Services
 
         public string Update(ProjectMember model)
         {
+            string updatedProjectId = projectMembersRepository.Update(model);
+            if (updatedProjectId != null)
+            {
+                return projectMemberActionsRepository.UpdateProjectMemberActionsForMember(updatedProjectId, model.ProjectMemberActions) ? updatedProjectId : string.Empty;
+            }
             return projectMembersRepository.Update(model);
         }
 
-        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds, ClaimsPrincipal claimsPrincipal)
+        public bool UpdateProjectMembersForProject(string projectId, Project project, ClaimsPrincipal claimsPrincipal)
         {
             string currentUserId = userManager.GetUserId(claimsPrincipal);
-            return projectMembersRepository.UpdateProjectMembersForProject(projectId, projectMemberIds, currentUserId);
+            bool projectMembersUpdated = projectMembersRepository.UpdateProjectMembersForProject(projectId, project.ProjectMemberIds, currentUserId);
+            //project.ProjectMembers = GetProjectMembersOfProject(projectId, userManager.GetUserId(claimsPrincipal));
+            if (projectMembersUpdated)
+            {
+                ProjectMember currentUserAsMember = project.ProjectMembers.FirstOrDefault(pm => pm.IsCurrentUser);
+                if (currentUserAsMember != null)
+                {
+                    bool success = projectMemberActionsRepository.UpdateProjectMemberActionsForMember(currentUserAsMember.Id, currentUserAsMember.ProjectMemberActions);
+                    if (!success)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

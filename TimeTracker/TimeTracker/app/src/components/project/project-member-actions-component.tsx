@@ -11,10 +11,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
 
     private inputChanged(index: number, val: any) {
         const currentProject = this.props.project;
-        console.log("bfr", currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description);
         currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description = val.target.value;
-        console.log("after", currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description);
-        console.log("send this currentProject", currentProject.projectMembers[this.props.currentUserIndex]);
         this.props.projectChanged(currentProject);
     }
 
@@ -30,7 +27,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
         const newProjectMemberAction: ProjectMemberAction = {
             description: "",
             id: "",
-            projectMemberId: "",
+            projectMemberId: this.props.project.projectMembers[this.props.currentUserIndex].id,
         };
         const currentProject = this.props.project;
         currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.push(newProjectMemberAction);
@@ -42,7 +39,6 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
     }
 
     render() {
-        console.log("re-render. received: ", this.props.project.projectMembers[this.props.currentUserIndex].projectMemberActions[0].description);
         return (
             <div>
                 <table className="table table-bordered table-hover table-responsive">

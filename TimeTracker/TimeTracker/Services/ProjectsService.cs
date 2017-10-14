@@ -58,17 +58,13 @@ namespace TimeTracker.Services
 
         public Project Get(string id)
         {
-            Project project = projectsRepository.Get(id);
-            if (project != null)
-            {
-                project.ProjectMembers = projectMembersService.GetProjectMembersOfProject(id);
-            }
-            return project;
+            throw new NotImplementedException();
         }
 
         public Project Get(string projectId, ClaimsPrincipal user)
         {
-            Project project = Get(projectId);
+            Project project = projectsRepository.Get(projectId);
+            project.ProjectMembers = projectMembersService.GetProjectMembersOfProject(projectId, userManager.GetUserId(user));
             if (project != null)
             {
                 string currentUserId = userManager.GetUserId(user);
@@ -95,7 +91,7 @@ namespace TimeTracker.Services
                 return allUserSelectItems;
             }
             List<ReactSelectListItem> projectMembers =
-                projectMembersService.GetProjectMembersOfProject(projectId)
+                projectMembersService.GetProjectMembersOfProject(projectId, userManager.GetUserId(user))
                 .Where(pm => pm.UserId != currentUserId)
                 .Select(pm => new ReactSelectListItem
                 {
@@ -117,7 +113,7 @@ namespace TimeTracker.Services
 
         public string Update(Project model, ClaimsPrincipal principal)
         {
-            if (projectMembersService.UpdateProjectMembersForProject(model.Id, model.ProjectMemberIds, principal))
+            if (projectMembersService.UpdateProjectMembersForProject(model.Id, model, principal))
             {
                 return projectsRepository.Update(model);
             }

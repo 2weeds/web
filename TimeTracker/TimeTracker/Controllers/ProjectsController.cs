@@ -39,7 +39,7 @@ namespace TimeTracker.Controllers
                 return NotFound();
             }
 
-            var project = projectsService.Get(id);
+            var project = projectsService.Get(id, HttpContext.User);
             if (project == null)
             {
                 return NotFound();
@@ -70,9 +70,10 @@ namespace TimeTracker.Controllers
                 return new JsonResult(new { message = "ProjectTitleNotUnique" });
             }
             string newProjectId = projectsService.Add(a, HttpContext.User);
-            a.Id = newProjectId;
-            
-            return new JsonResult(a);
+            Project project = projectsService.Get(newProjectId, HttpContext.User);
+            project.ProjectMemberIds = projectsService.GetProjectCreateModel(project.Id, HttpContext.User);
+            project.UsernamesWithIds = projectsService.GetProjectCreateModel(null, HttpContext.User);
+            return new JsonResult(project);
         }
 
         // GET: Projects/Edit/5
@@ -111,6 +112,7 @@ namespace TimeTracker.Controllers
                     return new JsonResult(new { message = "ExceptionWasRaised" });
                 }
             }
+            project = projectsService.Get(project.Id, HttpContext.User);
             project.ProjectMemberIds = projectsService.GetProjectCreateModel(project.Id, HttpContext.User);
             project.UsernamesWithIds = projectsService.GetProjectCreateModel(null, HttpContext.User);
             return new JsonResult(project);

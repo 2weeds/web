@@ -79,14 +79,17 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
         if (currentProject.projectMembers != null) {
             currentProjectMemberIndex = currentProject.projectMembers.map((e, i) => {
                 if (e.isCurrentUser) {
-                    return i;
+                    return i;   
                 }
-            })[0];
+            }).filter((e) => e != null)[0];
         }
-
-        if (currentProjectMemberIndex != null &&
-            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions == null) {
-
+        console.log("currentProjectMemberIndex", currentProjectMemberIndex);
+        if (currentProjectMemberIndex != -1) {
+            console.log("currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions", currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions);
+        }
+       
+        if (currentProjectMemberIndex != null && currentProjectMemberIndex != -1 &&
+            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions.length == 0) {
             let fakeMemberAction: ProjectMemberAction = {
                 description: "",
                 projectMemberId: currentProject.projectMembers[currentProjectMemberIndex].id,

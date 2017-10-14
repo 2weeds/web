@@ -105,15 +105,12 @@ namespace TimeTracker.Repositories
                     List<ProjectMemberAction> deletedProjectActions = previousActions
                         .Where(pa => !projectMemberActions.Any(pma => pma.Id == pa.Id)).ToList();
                     dbContext.RemoveRange(deletedProjectActions);
-                    List<ProjectMemberAction> actionsToInsert = projectMemberActions
-                        .Where(pma => !deletedProjectActions.Any(dpa => pma.Id == dpa.Id))
-                        .Select(ati => new ProjectMemberAction
-                        {
-                            Description = ati.Description,
-                            ProjectMemberId = projectMemberId
-                        }).ToList();
+                    projectMemberActions.RemoveAll(
+                        x => previousActions.Any(pa => pa.Description == x.Description) || 
+                        deletedProjectActions.Any(dpa => dpa.Description == x.Description));
                     foreach (ProjectMemberAction action in projectMemberActions)
                     {
+                        action.Id = null;
                         dbContext.ProjectMemberActions.Add(action);
                     }
                 }
