@@ -16,8 +16,8 @@
           <file leaf-file-name="root-tracking-component.tsx" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/root-tracking-component.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+                <state relative-caret-position="119">
+                  <caret line="10" column="2" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
@@ -39,142 +39,17 @@
             <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-props.tsx">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="68">
-                  <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+                  <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ProjectsService.cs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/Services/ProjectsService.cs">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="356">
-                  <caret line="34" column="49" lean-forward="false" selection-start-line="34" selection-start-column="49" selection-end-line="34" selection-end-column="49" />
-                  <folding>
-                    <marker date="1511017330789" expanded="false" signature="6:397" ph="..." />
-                    <marker date="1511017330789" expanded="true" signature="429:5276" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="483:5274" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="890:1076" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1118:1188" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1254:1598" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1493:1555" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1672:1782" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1821:1891" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="1930:1999" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="2067:2598" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="2302:2547" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="2644:2712" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="2816:3728" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="3156:3227" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="3515:3672" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="3767:4045" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="3927:4009" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="4117:4353" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="4225:4310" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="4426:5154" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="4687:4929" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="4831:4915" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="5032:5133" ph="{...}" />
-                    <marker date="1511017330789" expanded="true" signature="5199:5268" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ProjectMembersService.cs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/Services/ProjectMembersService.cs">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1173">
-                  <caret line="78" column="44" lean-forward="false" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
-                  <folding>
-                    <marker date="1511017129153" expanded="false" signature="6:311" ph="..." />
-                    <marker date="1511017129153" expanded="true" signature="343:5349" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="409:5347" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="867:1083" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1131:1207" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1285:1557" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1368:1507" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1637:1739" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1778:1854" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="1899:2229" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="2024:2185" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="2281:2355" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="2458:3129" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="2622:3082" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="2684:2765" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="3219:3335" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="3374:3671" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="3547:3635" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="3733:3832" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="3883:4281" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="4013:4212" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="4401:5341" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="4793:5306" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="4971:5292" ph="{...}" />
-                    <marker date="1511017129153" expanded="true" signature="5192:5274" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ProjectMembersRepository.cs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/Repositories/ProjectMembersRepository.cs">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1411">
-                  <caret line="91" column="70" lean-forward="false" selection-start-line="91" selection-start-column="70" selection-end-line="91" selection-end-column="70" />
-                  <folding>
-                    <marker date="1511017052342" expanded="false" signature="6:266" ph="..." />
-                    <marker date="1511017052342" expanded="true" signature="302:5011" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="374:5009" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="511:571" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="619:830" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="663:720" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="869:955" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1000:1202" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1038:1095" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1254:1328" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1409:1506" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1596:1746" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="1785:2040" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2102:2460" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2288:2386" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2405:2450" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2540:2720" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2582:2639" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2771:3056" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2797:2940" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="2989:3046" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="3192:5003" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="3278:4993" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="3546:3649" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="3684:4683" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="4245:4432" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="4552:4665" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="4703:4859" ph="{...}" />
-                    <marker date="1511017052342" expanded="true" signature="4865:4979" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="project-tabs.tsx" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/project-tabs.tsx">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="77" column="56" lean-forward="false" selection-start-line="77" selection-start-column="56" selection-end-line="77" selection-end-column="56" />
-                  <folding>
-                    <element signature="n#!!doc" expanded="true" />
-                    <element signature="e#189#220#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="single-time-picker.tsx" pinned="false" current-in-tab="true">
+          <file leaf-file-name="single-time-picker.tsx" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/single-time-picker.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="30" column="77" lean-forward="false" selection-start-line="30" selection-start-column="77" selection-end-line="30" selection-end-column="77" />
+                <state relative-caret-position="279">
+                  <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -232,6 +107,64 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="TrackingController.cs" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="310">
+                  <caret line="45" column="9" lean-forward="false" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+                  <folding>
+                    <marker date="1511812900370" expanded="false" signature="6:308" ph="..." />
+                    <marker date="1511812900370" expanded="true" signature="343:2560" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="410:2558" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="807:993" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="1031:1503" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="1300:1413" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="1587:2235" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="1661:1765" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="1945:2090" ph="{...}" />
+                    <marker date="1511812900370" expanded="true" signature="2250:2551" ph="/* public JsonResult GetAvailableProjectMemberActions(string projectId) ... */" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="appsettings.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TimeTracker/appsettings.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="187">
+                  <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                  <folding>
+                    <marker date="1511007866990" expanded="true" signature="25:191" ph="{...}" />
+                    <marker date="1511007866990" expanded="true" signature="206:290" ph="{...}" />
+                    <marker date="1511007866990" expanded="true" signature="252:286" ph="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="project-picker.tsx" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/project-picker.tsx">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="51">
+                  <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="project-tabs.tsx" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/project-tabs.tsx">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="262">
+                  <caret line="104" column="19" lean-forward="true" selection-start-line="99" selection-start-column="15" selection-end-line="104" selection-end-column="19" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                    <element signature="e#189#220#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -239,7 +172,7 @@
           <file leaf-file-name="AccountController.cs" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/AccountController.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
+                <state relative-caret-position="-561">
                   <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
                   <folding>
                     <marker date="1507055074475" expanded="false" signature="6:449" ph="..." />
@@ -455,8 +388,8 @@
           <file leaf-file-name="tracking-component.tsx" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-component.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="569">
-                  <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+                <state relative-caret-position="264">
+                  <caret line="84" column="15" lean-forward="false" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="15" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -464,31 +397,15 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TrackingController.cs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs">
+          <file leaf-file-name="RegisteredAction.cs" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="262">
-                  <caret line="41" column="9" lean-forward="false" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+                <state relative-caret-position="68">
+                  <caret line="6" column="33" lean-forward="true" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
                   <folding>
-                    <marker date="1511109102244" expanded="false" signature="6:294" ph="..." />
-                    <marker date="1511109102244" expanded="true" signature="329:1805" ph="{...}" />
-                    <marker date="1511109102244" expanded="true" signature="396:1803" ph="{...}" />
-                    <marker date="1511109102244" expanded="true" signature="793:979" ph="{...}" />
-                    <marker date="1511109102244" expanded="true" signature="1017:1485" ph="{...}" />
-                    <marker date="1511109102244" expanded="true" signature="1286:1399" ph="{...}" />
-                    <marker date="1511109102244" expanded="true" signature="1495:1796" ph="/* public JsonResult GetAvailableProjectMemberActions(string projectId) ... */" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="project-picker.tsx" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/project-picker.tsx">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
+                    <marker date="1511816014603" expanded="false" signature="6:110" ph="..." />
+                    <marker date="1511816014603" expanded="true" signature="154:526" ph="{...}" />
+                    <marker date="1511816014603" expanded="true" signature="190:524" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -541,6 +458,7 @@
     <setting file="file://$PROJECT_DIR$/TimeTracker/Repositories/Interfaces/IBaseRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TimeTracker/Repositories/Interfaces/IProjectsRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TimeTracker/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TimeTracker/appsettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TimeTracker/Views/Tracking/Index.cshtml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs" root0="FORCE_HIGHLIGHTING" />
@@ -567,7 +485,6 @@
       <list>
         <option value="$PROJECT_DIR$/TimeTracker/app/src/components/project/project-members-component.tsx" />
         <option value="$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredProjectMemberAction.cs" />
-        <option value="$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Repositories/Interfaces/IRegisteredActionRepository.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Data/ApplicationDbContext.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Repositories/RegisteredActionsRepository.cs" />
@@ -578,7 +495,6 @@
         <option value="$PROJECT_DIR$/TimeTracker/Views/Shared/_Layout.cshtml" />
         <option value="$PROJECT_DIR$/TimeTracker/app/src/root-tracking-component.tsx" />
         <option value="$PROJECT_DIR$/TimeTracker/Views/Tracking/Index.cshtml" />
-        <option value="$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Repositories/ProjectsRepository.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Repositories/Interfaces/IProjectsRepository.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/Services/Interfaces/IProjectsService.cs" />
@@ -592,6 +508,8 @@
         <option value="$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-props.tsx" />
         <option value="$PROJECT_DIR$/TimeTracker/app/src/components/tracking/project-picker.tsx" />
         <option value="$PROJECT_DIR$/TimeTracker/app/src/components/tracking/single-time-picker.tsx" />
+        <option value="$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs" />
+        <option value="$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs" />
         <option value="$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-component.tsx" />
       </list>
     </option>
@@ -605,9 +523,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/TimeTracker/app/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="width" value="976" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="3" />
+    <option name="width" value="1925" />
     <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
@@ -709,6 +627,7 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="typescript-compiler-editor-notification" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="SearchEverywhereHistoryKey" value="project-tab&#9;FILE&#9;file://C:/programming/university/web/TimeTracker/TimeTracker/app/src/components/project-tabs.tsx&#10;registeredaction.cs&#9;FILE&#9;file://C:/programming/university/web/TimeTracker/TimeTracker/Models/ProjectModels/RegisteredAction.cs&#10;appsettings&#9;FILE&#9;file://C:/programming/university/web/TimeTracker/TimeTracker/appsettings.json&#10;trackingco&#9;FILE&#9;file://C:/programming/university/web/TimeTracker/TimeTracker/Controllers/TrackingController.cs" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -741,6 +660,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="1122fc90-44a9-4fbb-b7e8-99d650dec9ec" name="Default" comment="" />
@@ -751,12 +673,12 @@
       <workItem from="1508786984447" duration="636000" />
       <workItem from="1511008695954" duration="8576000" />
       <workItem from="1511109085650" duration="273000" />
-      <workItem from="1511800519732" duration="7028000" />
+      <workItem from="1511800519732" duration="10837000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16513000" />
+    <option name="totallyTimeSpent" value="20322000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -768,7 +690,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <frame x="3" y="0" width="1925" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -776,7 +698,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897604" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32819384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -785,7 +707,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978212" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40418503" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -794,30 +716,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32897604" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.215625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897604" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978212" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -830,18 +728,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TimeTracker/Services/Interfaces/IProjectMembersService.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="17" column="72" lean-forward="false" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
-          <folding>
-            <marker date="1511017089224" expanded="false" signature="6:192" ph="..." />
-            <marker date="1511017089224" expanded="true" signature="235:812" ph="{...}" />
-            <marker date="1511017089224" expanded="true" signature="318:810" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/AccountController.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="931">
@@ -1040,13 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="55" lean-forward="false" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -1400,25 +1279,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/Services/RegisteredActionsService.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <marker date="1511013972324" expanded="false" signature="6:155" ph="..." />
-            <marker date="1511013972324" expanded="true" signature="187:1320" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="259:1318" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="457:551" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="614:691" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="739:814" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="865:943" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="982:1060" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="1099:1177" ph="{...}" />
-            <marker date="1511013972324" expanded="true" signature="1231:1312" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TimeTracker/Services/ProjectMembersService.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
@@ -1487,9 +1347,161 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/ProjectsController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="117" column="20" lean-forward="false" selection-start-line="117" selection-start-column="20" selection-end-line="120" selection-end-column="17" />
+          <folding>
+            <marker date="1511802052410" expanded="false" signature="6:492" ph="..." />
+            <marker date="1511802052410" expanded="true" signature="527:6228" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="594:6226" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="980:1160" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1223:1294" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1378:1690" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1416:1479" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1582:1645" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1761:1902" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="1912:2123" ph="/* POST: Projects/Create ... */" />
+            <marker date="1511802052410" expanded="true" signature="2242:3007" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="2299:2405" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="2476:2584" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="3085:3606" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="3123:3186" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="3289:3352" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="3616:3827" ph="/* POST: Projects/Edit/5 ... */" />
+            <marker date="1511802052410" expanded="true" signature="3905:4703" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="4028:4366" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="4099:4214" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="4235:4352" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="4797:5586" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="4841:4945" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="5310:5519" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="5415:5505" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="5668:5980" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="5706:5769" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="5872:5935" ph="{...}" />
+            <marker date="1511802052410" expanded="true" signature="6113:6219" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/multiple-times-editor.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/project-component.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-props.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/Services/RegisteredActionsService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <marker date="1511013972324" expanded="false" signature="6:155" ph="..." />
+            <marker date="1511013972324" expanded="true" signature="187:1320" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="259:1318" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="457:551" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="614:691" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="739:814" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="865:943" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="982:1060" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="1099:1177" ph="{...}" />
+            <marker date="1511013972324" expanded="true" signature="1231:1312" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="45" column="9" lean-forward="false" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+          <folding>
+            <marker date="1511812900370" expanded="false" signature="6:308" ph="..." />
+            <marker date="1511812900370" expanded="true" signature="343:2560" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="410:2558" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="807:993" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="1031:1503" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="1300:1413" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="1587:2235" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="1661:1765" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="1945:2090" ph="{...}" />
+            <marker date="1511812900370" expanded="true" signature="2250:2551" ph="/* public JsonResult GetAvailableProjectMemberActions(string projectId) ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/appsettings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <marker date="1511007866990" expanded="true" signature="25:191" ph="{...}" />
+            <marker date="1511007866990" expanded="true" signature="206:290" ph="{...}" />
+            <marker date="1511007866990" expanded="true" signature="252:286" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/Models/ProjectModels/RegisteredAction.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="33" lean-forward="true" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+          <folding>
+            <marker date="1511816014603" expanded="false" signature="6:110" ph="..." />
+            <marker date="1511816014603" expanded="true" signature="154:526" ph="{...}" />
+            <marker date="1511816014603" expanded="true" signature="190:524" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/root-tracking-component.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="2" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/single-time-picker.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/project-picker.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/AccountController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
+        <state relative-caret-position="-561">
           <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
           <folding>
             <marker date="1507055074475" expanded="false" signature="6:449" ph="..." />
@@ -1585,56 +1597,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/ProjectsController.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="117" column="20" lean-forward="false" selection-start-line="117" selection-start-column="20" selection-end-line="120" selection-end-column="17" />
-          <folding>
-            <marker date="1511802052410" expanded="false" signature="6:492" ph="..." />
-            <marker date="1511802052410" expanded="true" signature="527:6228" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="594:6226" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="980:1160" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1223:1294" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1378:1690" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1416:1479" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1582:1645" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1761:1902" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="1912:2123" ph="/* POST: Projects/Create ... */" />
-            <marker date="1511802052410" expanded="true" signature="2242:3007" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="2299:2405" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="2476:2584" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="3085:3606" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="3123:3186" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="3289:3352" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="3616:3827" ph="/* POST: Projects/Edit/5 ... */" />
-            <marker date="1511802052410" expanded="true" signature="3905:4703" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="4028:4366" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="4099:4214" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="4235:4352" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="4797:5586" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="4841:4945" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="5310:5519" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="5415:5505" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="5668:5980" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="5706:5769" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="5872:5935" ph="{...}" />
-            <marker date="1511802052410" expanded="true" signature="6113:6219" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/multiple-times-editor.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/project-tabs.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="77" column="56" lean-forward="false" selection-start-line="77" selection-start-column="56" selection-end-line="77" selection-end-column="56" />
+        <state relative-caret-position="262">
+          <caret line="104" column="19" lean-forward="true" selection-start-line="99" selection-start-column="15" selection-end-line="104" selection-end-column="19" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#189#220#0" expanded="true" />
@@ -1642,72 +1608,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/project-component.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/root-tracking-component.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/Controllers/TrackingController.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="41" column="9" lean-forward="false" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-          <folding>
-            <marker date="1511109102244" expanded="false" signature="6:294" ph="..." />
-            <marker date="1511109102244" expanded="true" signature="329:1805" ph="{...}" />
-            <marker date="1511109102244" expanded="true" signature="396:1803" ph="{...}" />
-            <marker date="1511109102244" expanded="true" signature="793:979" ph="{...}" />
-            <marker date="1511109102244" expanded="true" signature="1017:1485" ph="{...}" />
-            <marker date="1511109102244" expanded="true" signature="1286:1399" ph="{...}" />
-            <marker date="1511109102244" expanded="true" signature="1495:1796" ph="/* public JsonResult GetAvailableProjectMemberActions(string projectId) ... */" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-props.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/single-time-picker.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="30" column="77" lean-forward="false" selection-start-line="30" selection-start-column="77" selection-end-line="30" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/project-picker.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TimeTracker/app/src/components/tracking/tracking-component.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+        <state relative-caret-position="264">
+          <caret line="84" column="15" lean-forward="false" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="15" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

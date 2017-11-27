@@ -7,17 +7,29 @@ import MultipleTimesEditorComponent from "./multiple-times-editor";
 import 'react-tabs/style/react-tabs.css';
 import request from 'axios';
 import {SelectListItem} from "../../models/select-list-item";
-import {Project} from "../../models/projects/project";
-import {ProjectMemberAction} from "../../models/projects/project-member-action";
+import AlertComponent, {IAlertComponentProps, MessageType} from "../universal/alert-component";
 
 export interface ITrackingComponentState {
     currentProject: string,
     selectedAction: string, 
     enteredDuration: string,
-    projectMemberActions: SelectListItem[]
+    projectMemberActions: SelectListItem[],
+    alertComponentProperties: IAlertComponentProps;
 }
 
+const messages: any = {
+    "MissingProperties": "Missing proerties",
+    "UnknownError": "Unknown error has occured. Contact the developers.",
+    "Success": "Your changes have been successfully submitted."
+};
+
 export default class TrackingComponent extends React.Component<ITrackingProps, ITrackingComponentState> {
+
+    private config: any = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
     
     constructor(props: ITrackingProps) {
         super(props);
@@ -25,7 +37,12 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
             currentProject: null,
             selectedAction: null,
             enteredDuration: null,
-            projectMemberActions: null
+            projectMemberActions: null,
+            alertComponentProperties: {
+                display: false,
+                message: "",
+                messageType: MessageType.success
+            }
         };
     }
     
@@ -42,30 +59,60 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
     }
     
     private actionRegistered() {
-        
+        let requestUrl: string = "/Tracking/RegisterTime?projectMemberActionId=" +
+            this.state.selectedAction + "&duration=" + this.state.enteredDuration;
+        console.log("requestUrl", requestUrl);
+        const lastState: ITrackingComponentState = this.state;
+        request.get(requestUrl).then((response: any) => {
+           
+            lastState.alertComponentProperties.display = true;
+            if (response.data == "MissingParameters") {
+                lastState.alertComponentProperties.messageType = MessageType.danger;
+                lastState.alertComponentProperties.message = messages["MissingProperties"];
+            } else {
+                lastState.alertComponentProperties.messageType = MessageType.success;
+                lastState.alertComponentProperties.message = messages["Success"];
+                lastState.enteredDuration = "";
+                lastState.selectedAction = "";
+            }
+            this.setState(lastState);
+        });
+        setTimeout(() => {
+            const alertProps = this.state.alertComponentProperties;
+            alertProps.display = false;
+            lastState.alertComponentProperties = alertProps;
+            this.setState(lastState);
+        }, 5000);
     }
     
     private projectChanged(project: any) {
-        const config: any = {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        };
         let requestUrl : string = "/Projects/GetAvailableProjectUserActions?projectId=" + project.value;
-        request.get(requestUrl, config).then((response: any) => {
-            console.log("response", response);
-            let projectMemberActions : SelectListItem[] 
-                = response.data.map((x: any) => {
+        request.get(requestUrl, this.config).then((response: any) => {
+            const lastState: ITrackingComponentState = this.state;
+            lastState.alertComponentProperties.display = false;
+            if (response.data == "MissingParameters") {
+                lastState.alertComponentProperties.messageType = MessageType.danger;
+                lastState.alertComponentProperties.message = messages["MissingProperties"];
+            } else {
+                lastState.alertComponentProperties.messageType = MessageType.success;
+                lastState.alertComponentProperties.message = messages["Success"];
+                let projectMemberActions : SelectListItem[]
+                    = response.data.map((x: any) => {
                     return {
                         label: x.description,
                         value: x.id
                     };
-            });
-            const lastState: ITrackingComponentState = this.state;
-            lastState.currentProject = project;
-            lastState.projectMemberActions = projectMemberActions;
+                });
+                lastState.currentProject = project;
+                lastState.projectMemberActions = projectMemberActions;
+            }
             this.setState(lastState);
-            //console.log('projectMemberActions', projectMemberActions);
+            setTimeout(() => {
+                const alertProps = this.state.alertComponentProperties;
+                alertProps.display = false;
+                lastState.alertComponentProperties = alertProps;
+                this.setState(lastState);
+            }, 5000);
         });
         
     }
@@ -88,6 +135,7 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                         </Tab>    
                     </TabList>
                     <TabPanel>
+                        <AlertComponent {...this.state.alertComponentProperties}/>
                         <SingleTimePickerComponent 
                             selectedProjectMemberActionChanged={this.selectedActionChanged.bind(this)}
                             enteredDurationChanged={this.enteredDurationChanged.bind(this)}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -37,9 +38,28 @@ namespace TimeTracker.Controllers
                         label = project.Title,
                         value = project.Id
                     }
-            ).ToList();
+                ).ToList();
             return View(projectsAsSelectListItems);
         }
+
+        public JsonResult RegisterTime(string projectMemberActionId, int duration)
+        {
+            if (projectMemberActionId == null || duration <= 0)
+            {
+                return new JsonResult(new {message = "MissingParameters"});
+            }
+            DateTime now = DateTime.Now;
+            DateTime endTime = now.AddMinutes(duration);
+            RegisteredAction registeredAction = new RegisteredAction
+            {
+                StartTime = now,
+                EndTime = endTime,
+                ProjectMemberActionId = projectMemberActionId
+            };
+            string result = registeredActionsService.Add(registeredAction);
+            return new JsonResult(new {result = result});
+        }
+    
 
         /*public JsonResult GetAvailableProjectMemberActions(string projectId)
         {
