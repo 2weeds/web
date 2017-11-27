@@ -15,5 +15,6 @@ namespace TimeTracker.Services.Interfaces
         List<ProjectMember> GetProjectMembersOfProject(string projectId, string currentUserId);
         bool RemoveMembersOfProject(string projectId);
         string AddInitialUser(string projectId, ClaimsPrincipal user);
+        List<ProjectMember> GetAllProjectMembersByUserId(string userId);
     }
 }

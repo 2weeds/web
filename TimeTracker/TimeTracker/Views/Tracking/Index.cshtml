@@ -1,0 +1,19 @@
+﻿@using Newtonsoft.Json;
+@model System.Collections.Generic.List<TimeTracker.Models.ReactSelectListItem>
+
+<h2>Tracking</h2>
+
+<div id="main"></div>
+
+<script type="text/javascript">
+    var projects = @Html.Raw(Json.Serialize(Model,
+                       new JsonSerializerSettings
+                       {
+                           ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                       }));
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+
+<script src="~/a/c.entry.js"></script>

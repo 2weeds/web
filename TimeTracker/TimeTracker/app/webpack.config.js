@@ -3,7 +3,8 @@ module.exports = {
     //entry: "./src/index.tsx",
     entry: {
         a: "./src/a.tsx",
-        b: "./src/project-component.tsx"
+        b: "./src/project-component.tsx",
+        c: "./src/root-tracking-component.tsx"
     },
     output: {
         path: path.join(__dirname, "dist"),

@@ -120,6 +120,27 @@ namespace TimeTracker.Services
             return string.Empty;
         }
 
+        public List<ReactSelectListItem> GetUserProjects(string userId)
+        {
+            List<ProjectMember> projectMembers =
+                projectMembersService.GetAllProjectMembersByUserId(userId);
+            List<Project> projects = new List<Project>();
+            foreach (ProjectMember projectMember in projectMembers)
+            {
+                Project maybeProject = projectsRepository.Get(projectMember.ProjectId);
+                if (maybeProject != null)
+                {
+                    projects.Add(maybeProject);
+                }
+            }
+            return projects.Select(project =>
+                new ReactSelectListItem
+                {
+                    value = project.Id,
+                    label = project.Title
+                }).ToList();
+        }
+
         public string Update(Project model)
         {
             throw new NotImplementedException();

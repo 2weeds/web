@@ -2,11 +2,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Project } from "../../models/projects/project";
 import { IProjectComponentProps } from "./project-component-props";
+import AlertComponent from "../universal/alert-component";
 
 export default class MainProjectInfoComponent extends React.Component<IProjectComponentProps, any> {
 
     private projectNameChanged(newProjectName: any) {
-        console.log("projectNameChanged", newProjectName.target.value);
         const newProject: Project = this.props.project;
         newProject.title = newProjectName.target.value;
         this.props.projectChanged(newProject);

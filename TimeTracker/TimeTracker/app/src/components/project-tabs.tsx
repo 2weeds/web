@@ -14,14 +14,23 @@ import ProjectMemberActionsComponent from "./project/project-member-actions-comp
 import { ProjectMemberAction } from "../models/projects/project-member-action";
 import { ProjectMember } from "../models/projects/project-member";
 import { IProjectMemberActionsComponentProps } from "./project/project-member-actions-component";
+import { MessageType, IAlertComponentProps } from "./universal/alert-component";
+import AlertComponent from "./universal/alert-component";
 
 export interface IProjectTabsComponentProps {
     project: Project,
 }
 
 export interface IProjectTabsComponentState {
-    project: Project
+    project: Project,
+    alertComponentProperties: IAlertComponentProps
 }
+
+const messages: any = {
+    "ProjectTitleNotUnique": "Project title is not unique.",
+    "UnknownError": "Unknown error has occured. Contact the developers.",
+    "Success": "Your changes have been successfully submitted."
+};
 
 export default class ProjectTabsComponent extends React.Component<IProjectTabsComponentProps, IProjectTabsComponentState> {
 
@@ -34,8 +43,25 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
 
     constructor(props: IProjectTabsComponentProps) {
         super(props);
+        const componentProject = props.project;
+        if (componentProject.title == null) {
+            componentProject.title = "";
+        }
         this.state = {
-            project: props.project
+            project: componentProject,
+            alertComponentProperties: {
+                display: false,
+                message: "",
+                messageType: MessageType.success
+            }
+        };
+    }
+
+    private static getAlertComponentProperties(message: string, messageType: MessageType): IAlertComponentProps {
+        return {
+            display: true,
+            message: message,
+            messageType: messageType
         };
     }
 
@@ -49,24 +75,50 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
         if (project.title.length > 0) {
             request.post(this.getProjectUrl(project), JSON.stringify(project), config)
                 .then((response: any) => {
-                    const responseProject: Project = response.data;
-                    console.log("siuntem: ", project);
-                    console.log("gavom", responseProject);
+                    let lastAlertProperties: IAlertComponentProps = this.state.alertComponentProperties;
+                    let responseProject: Project = this.state.project;
+                    if (response.data.message != null) {
+                        const message = response.data.message == "ProjectTitleNotUnique" ? messages["ProjectTitleNotUnique"] : messages["UnknownError"];
+                        lastAlertProperties = ProjectTabsComponent.getAlertComponentProperties(message, MessageType.danger);
+                    
+                    } else {
+                        responseProject = response.data;
+                        lastAlertProperties = ProjectTabsComponent.getAlertComponentProperties(messages["Success"], MessageType.success);
+                    }
                     this.setState({
-                        project: responseProject
+                        project: responseProject,
+                        alertComponentProperties: lastAlertProperties
                     });
-
                 })
                 .catch((response: any) => {
-                    console.log("error response: ", response);
+                    this.setState({
+                        project: this.state.project,
+                        alertComponentProperties: ProjectTabsComponent.getAlertComponentProperties(messages["UnknownError"], MessageType.danger)
+                    });
                 });
+            setTimeout(() => {
+                const alertProps = this.state.alertComponentProperties;
+                alertProps.display = false;
+                this.setState({
+                    alertComponentProperties: alertProps,
+                    project: this.state.project
+                });
+            }, 3000);
         }
     }
 
     private projectChanged(newProject: Project) {
-        console.log("newProject", newProject);
         this.setState({
             project: newProject
+        });
+    }
+
+    private tabSelected() {
+        const alertProps = this.state.alertComponentProperties;
+        alertProps.display = false;
+        this.setState({
+            project: this.state.project,
+            alertComponentProperties: alertProps
         });
     }
 
@@ -82,10 +134,6 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     return i;   
                 }
             }).filter((e) => e != null)[0];
-        }
-        console.log("currentProjectMemberIndex", currentProjectMemberIndex);
-        if (currentProjectMemberIndex != -1) {
-            console.log("currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions", currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions);
         }
        
         if (currentProjectMemberIndex != null && currentProjectMemberIndex != -1 &&
@@ -112,7 +160,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
         };
 
         return (
-            <Tabs>
+            <Tabs onSelect={this.tabSelected.bind(this)}>
                 <TabList>
                     <Tab>
                         Title
@@ -125,12 +173,15 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     </Tab>
                 </TabList>
                 <TabPanel>
+                    <AlertComponent {...this.state.alertComponentProperties} />
                     <MainProjectInfoComponent {...componentProps} />
                 </TabPanel>
                 <TabPanel>
+                    <AlertComponent {...this.state.alertComponentProperties} />
                     <ProjectMembersComponent {...componentProps} />
                 </TabPanel>
                 <TabPanel>
+                    <AlertComponent {...this.state.alertComponentProperties} />
                     <ProjectMemberActionsComponent {...projectMemberComponentProps} />
                 </TabPanel>
             </Tabs>

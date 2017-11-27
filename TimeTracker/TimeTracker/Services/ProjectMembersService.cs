@@ -43,6 +43,11 @@ namespace TimeTracker.Services
             return Add(projectMember);
         }
 
+        public List<ProjectMember> GetAllProjectMembersByUserId(string userId)
+        {
+            return projectMembersRepository.GetAllProjectMembersByUserId(userId);
+        }
+
         public bool Exists(string id)
         {
             return projectMembersRepository.Exists(id);

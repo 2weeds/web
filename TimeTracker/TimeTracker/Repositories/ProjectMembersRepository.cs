@@ -83,6 +83,15 @@ namespace TimeTracker.Repositories
             }
         }
 
+        public List<ProjectMember> GetAllProjectMembersByUserId(string userId)
+        {
+            if (userId == null)
+            {
+                return null;
+            }
+            return GetAll().Where(pm => pm.UserId == userId).ToList();
+        }
+
         public string Update(ProjectMember model)
         {
             try

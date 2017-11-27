@@ -13,5 +13,6 @@ namespace TimeTracker.Repositories.Interfaces
         bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds, string currentUserId);
         List<ProjectMember> GetProjectMembersOfProject(string projectId);
         bool RemoveMembersOfProject(string projectId);
+        List<ProjectMember> GetAllProjectMembersByUserId(string userId);
     }
 }
