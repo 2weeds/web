@@ -4,6 +4,8 @@ import {Project} from "../../models/projects/project";
 import {SelectListItem} from "../../models/select-list-item";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
+import DatePicker from 'react-date-picker';
+import * as moment from "moment";
 
 export interface IMultipleTimesEditocComponentProps {
     registeredActions: RegisteredAction[],
@@ -11,6 +13,11 @@ export interface IMultipleTimesEditocComponentProps {
 }
 
 export default class MultipleTimesEditorComponent extends React.Component<IMultipleTimesEditocComponentProps, any> {
+    
+    private dateChanged() : any {
+        console.log("asd");        
+    }
+    
     render() {
         console.log("this.props.registeredActions", this.props.registeredActions);
         console.log("this.props.possibleUserActions", this.props.possibleUserActions);
@@ -31,16 +38,15 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
                                 return (
                                     <tr key={index}>
                                         <th>
-                                            <input 
-                                                type={"datetime-local"} 
-                                                className={"form-control"}
-                                                value={registeredAction.StartTime} />
+                                            <DatePicker
+                                                value={moment(registeredAction.StartTime).toDate()}
+                                                onChange={this.dateChanged.bind(this)}
+                                            />
                                         </th>
                                         <th>
-                                            <input
-                                                type={"datetime-local"}
-                                                className={"form-control"}
-                                                value={registeredAction.EndTime}
+                                            <DatePicker
+                                                value={moment(registeredAction.EndTime).toDate()}
+                                                onChange={this.dateChanged.bind(this)}
                                             />
                                         </th>
                                         <th>
