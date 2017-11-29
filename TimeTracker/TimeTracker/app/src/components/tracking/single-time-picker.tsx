@@ -2,6 +2,7 @@ import * as React from "react";
 import { SelectListItem } from "../../models/select-list-item";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
+import {ProjectSelectListItem} from "../../models/project-select-list-item";
 
 export interface ISingleTimePickerProps {
     selectedProjectMemberActionChanged(currentAction: any): any;

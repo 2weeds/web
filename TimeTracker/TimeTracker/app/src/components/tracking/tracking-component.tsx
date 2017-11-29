@@ -8,13 +8,16 @@ import 'react-tabs/style/react-tabs.css';
 import request from 'axios';
 import {SelectListItem} from "../../models/select-list-item";
 import AlertComponent, {IAlertComponentProps, MessageType} from "../universal/alert-component";
+import {ProjectSelectListItem} from "../../models/project-select-list-item";
+import {RegisteredAction} from "../../models/projects/registered-action";
 
 export interface ITrackingComponentState {
-    currentProject: string,
+    currentProject: ProjectSelectListItem,
     selectedAction: string, 
     enteredDuration: string,
     projectMemberActions: SelectListItem[],
-    alertComponentProperties: IAlertComponentProps;
+    alertComponentProperties: IAlertComponentProps,
+    registeredProjectMemberActions: RegisteredAction[]
 }
 
 const messages: any = {
@@ -42,7 +45,8 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 display: false,
                 message: "",
                 messageType: MessageType.success
-            }
+            },
+            registeredProjectMemberActions: null    
         };
     }
     
@@ -94,25 +98,26 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 lastState.alertComponentProperties.messageType = MessageType.danger;
                 lastState.alertComponentProperties.message = messages["MissingProperties"];
             } else {
+                console.log("response", response);
                 lastState.alertComponentProperties.messageType = MessageType.success;
                 lastState.alertComponentProperties.message = messages["Success"];
                 let projectMemberActions : SelectListItem[]
                     = response.data.map((x: any) => {
                     return {
                         label: x.description,
-                        value: x.id
+                        value: x.id,
                     };
                 });
                 lastState.currentProject = project;
                 lastState.projectMemberActions = projectMemberActions;
+                requestUrl = 'Tracking/GetProjectMemberRegisteredTimes?projectMemberId=' + this.state.currentProject.projectMemberId;
+                request.get(requestUrl).then((result : any) => {
+                    if (result.data != "MissingParameters") {
+                        lastState.registeredProjectMemberActions = result.data.result;
+                        this.setState(lastState);
+                    }
+                });
             }
-            this.setState(lastState);
-            setTimeout(() => {
-                const alertProps = this.state.alertComponentProperties;
-                alertProps.display = false;
-                lastState.alertComponentProperties = alertProps;
-                this.setState(lastState);
-            }, 5000);
         });
         
     }
@@ -123,8 +128,10 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 <ProjectPickerComponent 
                     valueChanged={this.projectChanged.bind(this)}
                     projects={this.props.projects}
-                    selectedValue={this.state.currentProject}
+                    selectedValue={this.state.currentProject != null ? this.state.currentProject.value : ""}
                 />
+                {this.state.projectMemberActions == null ? 
+                    <label>Choose the project first</label> : 
                 <Tabs>
                     <TabList>
                         <Tab>
@@ -146,9 +153,12 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                         />
                     </TabPanel>
                     <TabPanel>
-                        <MultipleTimesEditorComponent />
+                        <MultipleTimesEditorComponent
+                            registeredActions={this.state.registeredProjectMemberActions}
+                            possibleUserActions={this.state.projectMemberActions}
+                        />
                     </TabPanel>    
-                </Tabs>
+                </Tabs> }
             </div>
         )
     }
