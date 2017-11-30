@@ -38,7 +38,7 @@ export default class SingleTimePicker extends React.Component<ISingleTimePickerP
             <div className={"container-fluid"}>
                 <div className="row">
                     <div className={"col-lg-4 col-md-4 col-sm-4"}>
-                        <label>Pasirinktite veiksmo tipą</label>
+                        <label>Pick action type</label>
                         <Select
                             name={"ProjectMemberAction"}
                             options={this.props.projectMemberActions}
@@ -48,7 +48,7 @@ export default class SingleTimePicker extends React.Component<ISingleTimePickerP
                         />
                     </div>    
                     <div className={"col-lg-2 col-md-2 col-sm-2"}>
-                        <label>Įveskite trukmę</label>
+                        <label>Enter the duration</label>
                         <input 
                             className={"form-control"}
                             value={duration}

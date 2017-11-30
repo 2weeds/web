@@ -27,6 +27,8 @@ const messages: any = {
 };
 
 export default class TrackingComponent extends React.Component<ITrackingProps, ITrackingComponentState> {
+    
+    private registeredActionsBackup: RegisteredAction[] = null;
 
     private config: any = {
         headers: {
@@ -48,6 +50,14 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
             },
             registeredProjectMemberActions: null    
         };
+    }
+    
+    private resetModifiedRegisteredActions() {
+        console.log("reset");
+        console.log("backup", this.registeredActionsBackup);
+        const lastState: ITrackingComponentState = this.state;
+        lastState.registeredProjectMemberActions = JSON.parse(JSON.stringify(this.registeredActionsBackup));
+        this.setState(lastState);
     }
     
     private selectedActionChanged(val: any) {
@@ -114,12 +124,28 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 request.get(requestUrl).then((result : any) => {
                     if (result.data != "MissingParameters") {
                         lastState.registeredProjectMemberActions = result.data.result;
+                        this.registeredActionsBackup = JSON.parse(JSON.stringify(result.data.result));
                         this.setState(lastState);
                     }
                 });
             }
         });
         
+    }
+    
+    private registeredActionsChanged(registeredActions: RegisteredAction[]) {
+        const lastState: ITrackingComponentState = this.state;
+        lastState.registeredProjectMemberActions = registeredActions;
+        this.setState(lastState);
+    }
+    
+    private saveActions() {
+        const urL: string = "/Tracking/UpdateRegisteredTimes";
+        request.post(urL,  {RegisteredActions: this.state.registeredProjectMemberActions}, this.config)
+            .then((response : any) => {
+                console.log("response.data.message", response.data.message);
+            })
+            
     }
     
     render() {
@@ -135,10 +161,10 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 <Tabs>
                     <TabList>
                         <Tab>
-                            Momentinis laiko priskyrimas
+                            Mark action
                         </Tab>
                         <Tab>
-                            Priskirtų laikų redagavimas
+                            Manage actions
                         </Tab>    
                     </TabList>
                     <TabPanel>
@@ -156,6 +182,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                         <MultipleTimesEditorComponent
                             registeredActions={this.state.registeredProjectMemberActions}
                             possibleUserActions={this.state.projectMemberActions}
+                            registeredActionsChanged={this.registeredActionsChanged.bind(this)}
+                            resetModifiedActions={this.resetModifiedRegisteredActions.bind(this)}
+                            saveActions={this.saveActions.bind(this)}
                         />
                     </TabPanel>    
                 </Tabs> }
