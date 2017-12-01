@@ -28,8 +28,6 @@ export default class SingleTimePicker extends React.Component<ISingleTimePickerP
     }
     
     render() {
-        console.log("singleTimePicker");
-        console.log("projectMemberActions", this.props.projectMemberActions);
         let duration = this.props.enteredDuration;
         if (duration == null) {
             duration = "";
@@ -57,9 +55,9 @@ export default class SingleTimePicker extends React.Component<ISingleTimePickerP
                 </div>
                 <br/>
                 <button
-                    className={"btn btn-default"}
+                    className={"btn btn-success"}
                     type={"number"}
-                    onClick={this.actionRegistered.bind(this)}>Saugoti
+                    onClick={this.actionRegistered.bind(this)}>Save
                 </button>
             </div>    
         );

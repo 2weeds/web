@@ -1,6 +1,5 @@
 import * as React from "react";
 import {RegisteredAction} from "../../models/projects/registered-action";
-import {Project} from "../../models/projects/project";
 import {SelectListItem} from "../../models/select-list-item";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
@@ -22,11 +21,7 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
     private ACTION_CHANGED : number = 2;
     private DELETED: number = 3;
     
-    
     private itemChanged(actionType: number, index: number, event: any) : any {
-        console.log("index", index);
-        console.log("actionType", actionType);
-        console.log("event", event);
         const registeredActions : RegisteredAction[] = this.props.registeredActions;
         const editedAction: RegisteredAction = registeredActions[index];
         switch (actionType) {

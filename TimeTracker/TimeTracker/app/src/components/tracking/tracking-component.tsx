@@ -96,6 +96,7 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
             alertProps.display = false;
             lastState.alertComponentProperties = alertProps;
             this.setState(lastState);
+            this.projectChanged(this.state.currentProject);
         }, 5000);
     }
     
@@ -143,6 +144,22 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
         const urL: string = "/Tracking/UpdateRegisteredTimes";
         request.post(urL,  {RegisteredActions: this.state.registeredProjectMemberActions}, this.config)
             .then((response : any) => {
+                const lastState: ITrackingComponentState = this.state;
+                lastState.alertComponentProperties.display = true;
+                if (response.data.message == "MissingParameters") {
+                    lastState.alertComponentProperties.message = messages["MissingParameters"];
+                    lastState.alertComponentProperties.messageType = MessageType.danger;
+                } else {
+                    lastState.alertComponentProperties.display = true;
+                    lastState.alertComponentProperties.message = messages["Sucess"];
+                    lastState.alertComponentProperties.messageType = MessageType.success;
+                    this.setState(lastState);
+                    this.projectChanged(this.state.currentProject);
+                }
+                setTimeout(() => {
+                    lastState.alertComponentProperties.display = false;
+                    this.setState(lastState);
+                }, 3000);
                 console.log("response.data.message", response.data.message);
             })
             
@@ -179,6 +196,7 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                         />
                     </TabPanel>
                     <TabPanel>
+                        <AlertComponent {...this.state.alertComponentProperties}/>
                         <MultipleTimesEditorComponent
                             registeredActions={this.state.registeredProjectMemberActions}
                             possibleUserActions={this.state.projectMemberActions}
