@@ -73,7 +73,7 @@ namespace TimeTracker
             services.AddTransient<IProjectsRepository, ProjectsRepository>();
             services.AddTransient<IProjectsService, ProjectsService>();
             services.AddTransient<IProjectMembersRepository, ProjectMembersRepository>();
-            services.AddTransient<IProjectMemberActionRepository, ProjectMemberActionRepository>();
+            services.AddTransient<IProjectActionRepository, ProjectActionRepository>();
             services.AddTransient<IProjectMembersService, ProjectMembersService>();
             services.AddTransient<IRegisteredActionRepository, RegisteredActionsRepository>();
             services.AddTransient<IRegisteredActionsService, RegisteredActionsService>();

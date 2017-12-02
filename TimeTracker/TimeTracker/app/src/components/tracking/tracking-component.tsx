@@ -74,7 +74,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
     
     private actionRegistered() {
         let requestUrl: string = "/Tracking/RegisterTime?projectMemberActionId=" +
-            this.state.selectedAction + "&duration=" + this.state.enteredDuration;
+            this.state.selectedAction + "&duration=" + this.state.enteredDuration + 
+            "&projectMemberId=" + this.state.currentProject.projectMemberId;
+        console.log("request Url");
         console.log("requestUrl", requestUrl);
         const lastState: ITrackingComponentState = this.state;
         request.get(requestUrl).then((response: any) => {
@@ -142,7 +144,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
     
     private saveActions() {
         const urL: string = "/Tracking/UpdateRegisteredTimes";
-        request.post(urL,  {RegisteredActions: this.state.registeredProjectMemberActions}, this.config)
+        request.post(urL,  {
+                RegisteredActions: this.state.registeredProjectMemberActions,
+                ProjectMemberId: this.state.currentProject.projectMemberId}, this.config)
             .then((response : any) => {
                 const lastState: ITrackingComponentState = this.state;
                 lastState.alertComponentProperties.display = true;

@@ -1,7 +1,20 @@
 ﻿@using Newtonsoft.Json;
-@model System.Collections.Generic.List<TimeTracker.Models.ReactSelectListItem>
+@model System.Collections.Generic.List<TimeTracker.Models.ReactProjectSelectListItem>
 
 <h2>Tracking</h2>
+
+<style>
+    .react-date-picker {
+        display: block;
+    }
+    .react-date-picker__calendar--above-label {
+        top: 100%;
+    }
+    .react-calendar {
+        position: relative;
+        z-index: 1;
+    }
+</style>
 
 <div id="main"></div>
 

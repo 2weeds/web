@@ -19,15 +19,18 @@ namespace TimeTracker.Services
         private readonly IProjectsRepository projectsRepository;
         private readonly IProjectMembersService projectMembersService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IProjectActionRepository projectActionRepository;
 
         public ProjectsService(
             IProjectsRepository projectsRepository,
             IProjectMembersService projectMembersService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IProjectActionRepository projectActionRepository)
         {
             this.projectsRepository = projectsRepository;
             this.projectMembersService = projectMembersService;
             this.userManager = userManager;
+            this.projectActionRepository = projectActionRepository;
         }
 
         public string Add(Project model)
@@ -70,6 +73,8 @@ namespace TimeTracker.Services
                 string currentUserId = userManager.GetUserId(user);
                 project.ProjectMembers.Where(pm => pm.UserId == currentUserId)
                     .ToList().ForEach(pm => pm.IsCurrentUser = true);
+                project.ProjectActions = projectActionRepository.GetAll()
+                    .Where(x => x.ProjectId == project.Id).ToList();
             }
             return project;
             
@@ -115,9 +120,31 @@ namespace TimeTracker.Services
         {
             if (projectMembersService.UpdateProjectMembersForProject(model.Id, model, principal))
             {
+                bool projectActionsUpdateResult =
+                    projectActionRepository.UpdateProjectActions(model.ProjectActions, model.Id);
+                if (!projectActionsUpdateResult)
+                {
+                    return "Error";
+                }
                 return projectsRepository.Update(model);
             }
             return string.Empty;
+        }
+
+        public List<Project> GetAllUserProjectObjects(string userId)
+        {
+            List<ProjectMember> projectMembers =
+                projectMembersService.GetAllProjectMembersByUserId(userId);
+            List<Project> projects = new List<Project>();
+            foreach (ProjectMember projectMember in projectMembers)
+            {
+                Project maybeProject = projectsRepository.Get(projectMember.ProjectId);
+                if (maybeProject != null)
+                {
+                    projects.Add(maybeProject);
+                }
+            }
+            return projects;
         }
 
         public List<ReactSelectListItem> GetUserProjects(string userId)

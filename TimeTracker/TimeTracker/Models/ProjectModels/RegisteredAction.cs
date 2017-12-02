@@ -11,12 +11,11 @@ namespace TimeTracker.Models.ProjectModels
         
         public DateTime StartTime { get; set; }
         
-        public DateTime EndTime { get; set; }
+        public int Duration { get; set; }
         
-        [NotMapped]
         public string ProjectMemberId { get; set; }
         
-        public string ProjectMemberActionId { get; set; }
+        public string ProjectActionId { get; set; }
         
     }
 }

@@ -35,7 +35,7 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
                 editedAction.duration = event.target.value
                 break;
             case this.ACTION_CHANGED:
-                editedAction.projectMemberActionId = event.value;
+                editedAction.projectActionId = event.value;
                 break;
             case this.DELETED:
                 registeredActions.splice(index, 1);
@@ -82,7 +82,7 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
                                                 onChange={this.itemChanged.bind(this, this.ACTION_CHANGED, index)}
                                                 options={this.props.possibleUserActions}
                                                 multi={false}
-                                                value={registeredAction.projectMemberActionId}
+                                                value={registeredAction.projectActionId}
                                             />
                                         </th>    
                                         <th>

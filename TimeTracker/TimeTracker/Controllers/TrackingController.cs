@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TimeTracker.Models;
 using TimeTracker.Models.ProjectModels;
+using TimeTracker.Repositories.Interfaces;
 using TimeTracker.Services.Interfaces;
 
 namespace TimeTracker.Controllers
@@ -18,57 +19,82 @@ namespace TimeTracker.Controllers
         private readonly IProjectsService projectsService;
         private readonly IRegisteredActionsService registeredActionsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IProjectMembersService projectMembersService;
+        private readonly IProjectActionRepository _projectActionsRepository;
 
         public TrackingController(IProjectsService projectsService,
             IRegisteredActionsService registeredActionsService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IProjectMembersService projectMembersService,
+            IProjectActionRepository projectActionsRepository)
         {
             this.projectsService = projectsService;
             this.registeredActionsService = registeredActionsService;
             this.userManager = userManager;
+            this.projectMembersService = projectMembersService;
+            this._projectActionsRepository = projectActionsRepository;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Project> allProjects = projectsService.GetAll();
-            List<ReactSelectListItem> projectsAsSelectListItems =
+            string currentUserId =
+                userManager.GetUserId(HttpContext.User);
+            List<ReactSelectListItem> allProjects = projectsService.GetUserProjects(currentUserId);
+            List<ReactProjectSelectListItem> projectsAsSelectListItems =
                 allProjects.ToList().Select(project =>
-                    new ReactSelectListItem
+                    new ReactProjectSelectListItem
                     {
-                        label = project.Title,
-                        value = project.Id
+                        label = project.label,
+                        value = project.value,
+                        projectMemberId =
+                            projectMembersService.GetProjectMembersOfProject(project.value, currentUserId)
+                                .First(x => x.IsCurrentUser).Id
                     }
                 ).ToList();
             return View(projectsAsSelectListItems);
         }
 
-        public JsonResult RegisterTime(string projectMemberActionId, int duration)
+        public JsonResult RegisterTime(string projectMemberActionId, string projectMemberId, int duration)
         {
             if (projectMemberActionId == null || duration <= 0)
             {
                 return new JsonResult(new {message = "MissingParameters"});
             }
             DateTime now = DateTime.Now;
-            DateTime endTime = now.AddMinutes(duration);
+            ProjectAction projectMemberAction = _projectActionsRepository.Get(projectMemberActionId);
             RegisteredAction registeredAction = new RegisteredAction
             {
                 StartTime = now,
-                EndTime = endTime,
-                ProjectMemberActionId = projectMemberActionId
+                Duration = duration,
+                ProjectMemberId = projectMemberId,
+                ProjectActionId =  projectMemberActionId
             };
             string result = registeredActionsService.Add(registeredAction);
             return new JsonResult(new {result = result});
         }
-    
 
-        /*public JsonResult GetAvailableProjectMemberActions(string projectId)
+        public JsonResult GetProjectMemberRegisteredTimes(string projectMemberId)
         {
-            if (projectId == null)
+            if (projectMemberId == null)
             {
-                return new JsonResult(new { message = "ProjectIdMissing" });
+                return new JsonResult(new {message = "MissingParameters"});
             }
-            string userId = userManager.GetUserId(HttpContext.User);
-        }*/
+            List<RegisteredAction> registeredActions =
+                registeredActionsService.GetRegisteredProjectMemberActions(projectMemberId);
+            return new JsonResult(new {result = registeredActions});
+        }
+
+        public JsonResult UpdateRegisteredTimes([FromBody]RegisteredActionsUpdateModel model)
+        {
+            if (model == null || model.RegisteredActions == null) 
+            {
+                return new JsonResult(new {message = "MissingParameters"});
+            }
+            bool updateResult = 
+                registeredActionsService.UpdateRegisteredActions(
+                    model.RegisteredActions, model.ProjectMemberId);
+            return new JsonResult(new {message = updateResult ? "Success" : "Fail"});
+        }
 
     }
 }

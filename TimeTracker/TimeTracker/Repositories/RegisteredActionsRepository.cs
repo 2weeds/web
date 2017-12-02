@@ -63,8 +63,8 @@ namespace TimeTracker.Repositories
                 RegisteredAction action = Get(model.Id);
                 context.RegisteredActions.Attach(action);
                 action.StartTime = model.StartTime;
-                action.EndTime = model.EndTime;
-                action.ProjectMemberActionId = model.ProjectMemberActionId;
+                action.Duration = model.Duration;
+                action.ProjectActionId = model.ProjectActionId;
                 action.ProjectMemberId = model.ProjectMemberId;
                 context.SaveChanges();
                 return model.Id;
@@ -73,6 +73,12 @@ namespace TimeTracker.Repositories
             {
                 return null;
             }
+        }
+
+        public List<RegisteredAction> GetRegisteredProjectMemberActions(string projectMemberId)
+        {
+            return GetAll().
+                Where(x => x.ProjectMemberId == projectMemberId).ToList();
         }
     }
 }

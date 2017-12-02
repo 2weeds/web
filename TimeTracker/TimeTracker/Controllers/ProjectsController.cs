@@ -12,7 +12,9 @@ using TimeTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using TimeTracker.Data.Migrations;
 using TimeTracker.Models;
+using TimeTracker.Repositories.Interfaces;
 
 namespace TimeTracker.Controllers
 {
@@ -23,20 +25,24 @@ namespace TimeTracker.Controllers
         private readonly IProjectsService projectsService;
         private readonly IProjectMembersService projectMembersService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IProjectActionRepository projectActionRepository;
 
         public ProjectsController(IProjectsService projectsService, 
             IProjectMembersService projectMembersService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IProjectActionRepository projectActionRepository)
         {
             this.projectsService = projectsService;
             this.projectMembersService = projectMembersService;
             this.userManager = userManager;
+            this.projectActionRepository = projectActionRepository;
         }
 
         // GET: Projects
         public IActionResult Index()
         {
-            return View(projectsService.GetAll());
+            string currentUserId = userManager.GetUserId(HttpContext.User);
+            return View(projectsService.GetAllUserProjectObjects(currentUserId));
         }
 
         // GET: Projects/Details/5
@@ -133,17 +139,8 @@ namespace TimeTracker.Controllers
             {
                 return new JsonResult(new {message = "MissingParameters"});
             }
-            string userId = userManager.GetUserId(HttpContext.User);
-            List<ProjectMember> projectMembers =
-                projectMembersService.GetProjectMembersOfProject(projectId, userId);
-            List<ProjectMemberAction> projectMemberActions = new List<ProjectMemberAction>();
-            foreach (ProjectMember projectMember in projectMembers)
-            {
-                foreach (ProjectMemberAction action in projectMember.ProjectMemberActions)
-                {
-                    projectMemberActions.Add(action);
-                }
-            }
+            List<ProjectAction> projectMemberActions = projectActionRepository.GetProjectActions(projectId);
+             
             return new JsonResult(projectMemberActions);
         }
 

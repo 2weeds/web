@@ -10,10 +10,10 @@ import ProjectMembersComponent from "./project/project-members-component";
 import { Project } from "../models/projects/project";
 import request from 'axios';
 import { IProjectComponentProps } from "./project/project-component-props";
-import ProjectMemberActionsComponent from "./project/project-member-actions-component";
-import { ProjectMemberAction } from "../models/projects/project-member-action";
+import ProjectActionsComponent from "./project/project-actions-component";
+import { ProjectAction } from "../models/projects/project-action";
 import { ProjectMember } from "../models/projects/project-member";
-import { IProjectMemberActionsComponentProps } from "./project/project-member-actions-component";
+import { IProjectActionsComponentProps } from "./project/project-actions-component";
 import { MessageType, IAlertComponentProps } from "./universal/alert-component";
 import AlertComponent from "./universal/alert-component";
 
@@ -125,6 +125,19 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
     render() {
 
         const currentProject = this.state.project;
+        console.log("currentProject", currentProject);
+        if (currentProject.projectActions == null) {
+            currentProject.projectActions = [];
+        }
+
+        if (currentProject.projectActions.length == 0) {
+            const emptyAction: ProjectAction = {
+                description: '',
+                id: '',
+                projectId: this.state.project.id
+            }
+            currentProject.projectActions = [emptyAction];
+        }
 
         let currentProjectMemberIndex: number = -1;
 
@@ -135,26 +148,13 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                 }
             }).filter((e) => e != null)[0];
         }
-       
-        if (currentProjectMemberIndex != null && currentProjectMemberIndex != -1 &&
-            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions.length == 0) {
-            let fakeMemberAction: ProjectMemberAction = {
-                description: "",
-                projectMemberId: currentProject.projectMembers[currentProjectMemberIndex].id,
-                id: ""
-            };
-
-            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions = [];
-            currentProject.projectMembers[currentProjectMemberIndex].projectMemberActions.push(fakeMemberAction);
-        }
-
         const componentProps: IProjectComponentProps = {
             projectSaved: this.allowAddingMembers.bind(this),
             project: currentProject,
             projectChanged: this.projectChanged.bind(this)
         };
 
-        const projectMemberComponentProps: IProjectMemberActionsComponentProps = {
+        const projectMemberComponentProps: IProjectActionsComponentProps = {
             ...componentProps,
             currentUserIndex: currentProjectMemberIndex
         };
@@ -168,7 +168,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     <Tab disabled={this.state.project.id == null}>
                         Members
                     </Tab>
-                    <Tab disabled={this.state.project.projectMemberIds == null}>
+                    <Tab disabled={this.state.project.id == null}>
                         Actions
                     </Tab>
                 </TabList>
@@ -182,7 +182,7 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                 </TabPanel>
                 <TabPanel>
                     <AlertComponent {...this.state.alertComponentProperties} />
-                    <ProjectMemberActionsComponent {...projectMemberComponentProps} />
+                    <ProjectActionsComponent {...projectMemberComponentProps} />
                 </TabPanel>
             </Tabs>
         );

@@ -17,5 +17,6 @@ namespace TimeTracker.Services.Interfaces
         Project Get(string projectId, ClaimsPrincipal user);
         string Update(Project model, ClaimsPrincipal principal);
         List<ReactSelectListItem> GetUserProjects(string userId);
+        List<Project> GetAllUserProjectObjects(string userId);
     }
 }
