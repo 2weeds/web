@@ -1,36 +1,37 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { IProjectComponentProps } from "./project-component-props";
-import { ProjectMemberAction } from "../../models/projects/project-member-action";
+import { ProjectAction } from "../../models/projects/project-action";
+import {Project} from "../../models/projects/project";
 
-export interface IProjectMemberActionsComponentProps extends IProjectComponentProps {
+export interface IProjectActionsComponentProps extends IProjectComponentProps {
     currentUserIndex: number
 }
 
-export default class ProjectMemberActionsComponent extends React.Component<IProjectMemberActionsComponentProps, any> {
+export default class ProjectActionsComponent extends React.Component<IProjectActionsComponentProps, any> {
 
     private inputChanged(index: number, val: any) {
         const currentProject = this.props.project;
-        currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions[index].description = val.target.value;
+        currentProject.projectActions[index].description = val.target.value;
         this.props.projectChanged(currentProject);
     }
 
     private deleteRow(index: number) {
         const currentProject = this.props.project;
-        if (currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.length > 1) {
-            currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.splice(index, 1);
+        if (currentProject.projectActions.length > 1) {
+            currentProject.projectActions.splice(index, 1);
             this.props.projectChanged(currentProject);
         }
     }
 
     private addRow() {
-        const newProjectMemberAction: ProjectMemberAction = {
+        const newProjectMemberAction: ProjectAction = {
             description: "",
             id: "",
-            projectMemberId: this.props.project.projectMembers[this.props.currentUserIndex].id,
+            projectId: this.props.project.id
         };
         const currentProject = this.props.project;
-        currentProject.projectMembers[this.props.currentUserIndex].projectMemberActions.push(newProjectMemberAction);
+        currentProject.projectActions.push(newProjectMemberAction);
         this.props.projectChanged(currentProject);
     }
 
@@ -50,7 +51,7 @@ export default class ProjectMemberActionsComponent extends React.Component<IProj
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.project.projectMembers[this.props.currentUserIndex].projectMemberActions.map((item: ProjectMemberAction, index: number) => {
+                        {this.props.project.projectActions.map((item: ProjectAction, index: number) => {
                             return (
                                 <tr key={index}>
                                     <td>
