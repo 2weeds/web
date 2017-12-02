@@ -147,7 +147,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
         const urL: string = "/Tracking/UpdateRegisteredTimes";
         request.post(urL,  {
                 RegisteredActions: this.state.registeredProjectMemberActions,
-                ProjectMemberId: this.state.currentProject.projectMemberId}, this.config)
+                ProjectMemberId: this.state.currentProject.projectMemberId,
+                ProjectId: this.state.currentProject.value,
+                IsManager: this.state.canAdminModeBeEnabled && this.state.canAdminModeBeEnabled}, this.config)
             .then((response : any) => {
                 const lastState: ITrackingComponentState = this.state;
                 lastState.alertComponentProperties.display = true;
@@ -178,7 +180,6 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                     return registeredAction.projectMemberId == this.state.currentProject.projectMemberId;
             });
             newState.registeredProjectMemberActions = filteredRegisteredActions;
-            console.log("newState", newState);
             this.setState(newState);
         } else {
             newState.registeredProjectMemberActions = this.registeredActionsBackup;

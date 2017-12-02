@@ -91,5 +91,36 @@ namespace TimeTracker.Services
                 return false;
             }
         }
+
+        public bool UpdateProjectActions(List<RegisteredAction> projectActions, string projectId)
+        {
+            try
+            {
+                List<string> projectMemberIds = projectMembersRepository
+                    .GetProjectMembersOfProject(projectId)
+                    .Select(x => x.Id).Distinct().ToList();
+                List<RegisteredAction> projectRegisteredActions =
+                    registeredActionRepository.GetProjectRegisteredActions(projectMemberIds);
+                List<RegisteredAction> deletedActions =
+                    projectRegisteredActions.Where(ppa =>
+                        !projectActions.Any(pa => pa.Id == ppa.Id)).ToList();
+                foreach (RegisteredAction registeredAction in deletedActions)
+                {
+                    registeredActionRepository.Remove(registeredAction.Id);
+                }
+                foreach (RegisteredAction registeredAction in projectActions)
+                {
+                    if (string.IsNullOrEmpty(registeredAction.Id))
+                    {
+                        Add(registeredAction);
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

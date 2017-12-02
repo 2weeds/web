@@ -8,5 +8,6 @@ namespace TimeTracker.Services.Interfaces
         List<RegisteredAction> GetRegisteredProjectMemberActions(string projectMemberId);
         List<RegisteredAction> GetAllProjectRegisteredActions(string projectId);
         bool UpdateRegisteredActions(List<RegisteredAction> registeredActions, string projectmemberId);
+        bool UpdateProjectActions(List<RegisteredAction> projectActions, string projectId);
     }
 }

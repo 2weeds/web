@@ -99,8 +99,11 @@ namespace TimeTracker.Controllers
                 return new JsonResult(new {message = "MissingParameters"});
             }
             bool updateResult = 
-                registeredActionsService.UpdateRegisteredActions(
-                    model.RegisteredActions, model.ProjectMemberId);
+                !model.IsProjectManager ? 
+                    registeredActionsService.UpdateRegisteredActions(
+                        model.RegisteredActions, model.ProjectMemberId) :
+                    registeredActionsService.UpdateProjectActions(
+                        model.RegisteredActions, model.ProjectId);
             return new JsonResult(new {message = updateResult ? "Success" : "Fail"});
         }
 
