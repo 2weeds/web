@@ -3,4 +3,5 @@ export interface RegisteredAction {
     startTime: string, 
     duration: number, 
     projectActionId: string,
+    projectMemberId: string
 }

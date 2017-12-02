@@ -12,12 +12,10 @@ export interface IProjectPickerProps extends ITrackingProps {
 export default class ProjectPickerComponent extends React.Component<IProjectPickerProps, any> {
     
     private valueChanged(val: any) {
-        console.log("val", val);
-        this.props.valueChanged(val, val.canAdminModeBeEnabled);
+        this.props.valueChanged(val, val.isProjectManager);
     }
     
     render() {
-        console.log("this.props.projects", this.props.projects);
         return (
           <div className="container-fluid">
               <div className="row">

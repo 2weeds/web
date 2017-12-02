@@ -80,5 +80,19 @@ namespace TimeTracker.Repositories
             return GetAll().
                 Where(x => x.ProjectMemberId == projectMemberId).ToList();
         }
+
+        public List<RegisteredAction> GetProjectRegisteredActions(List<string> projectMemberIds)
+        {
+            IEnumerable<RegisteredAction> allRegisteredActions = GetAll();
+            List<RegisteredAction> projectRegisteredActions = new List<RegisteredAction>();
+            foreach (RegisteredAction registeredAction in allRegisteredActions)
+            {
+                if (projectMemberIds.Any(x => registeredAction.ProjectMemberId == x))
+                {
+                    projectRegisteredActions.Add(registeredAction);
+                }
+            }
+            return projectRegisteredActions;
+        }
     }
 }

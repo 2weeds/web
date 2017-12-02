@@ -82,8 +82,13 @@ namespace TimeTracker.Controllers
             {
                 return new JsonResult(new {message = "MissingParameters"});
             }
+            ProjectMember projectMember = projectMembersService
+                .Get(projectMemberId);
+            bool isManager = projectMember.MemberRole == 1;
             List<RegisteredAction> registeredActions =
-                registeredActionsService.GetRegisteredProjectMemberActions(projectMemberId);
+                !isManager ?
+                    registeredActionsService.GetRegisteredProjectMemberActions(projectMemberId) : 
+                    registeredActionsService.GetAllProjectRegisteredActions(projectMember.ProjectId);
             return new JsonResult(new {result = registeredActions});
         }
 

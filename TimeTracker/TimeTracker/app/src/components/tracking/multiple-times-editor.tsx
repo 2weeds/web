@@ -6,6 +6,7 @@ import "react-select/dist/react-select.css";
 import DatePicker from 'react-date-picker';
 import * as moment from "moment";
 import Toggle from "react-toggle";
+import "react-toggle/style.css" 
 
 export interface IMultipleTimesEditocComponentProps {
     registeredActions: RegisteredAction[],
@@ -27,6 +28,10 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
     private ADMIN_MODE_CHECKED: number = 4;
     
     private itemChanged(actionType: number, index: number, event: any) : any {
+        if (actionType == this.ADMIN_MODE_CHECKED) {
+            this.props.adminModeChanged(!this.props.isAdminModeEnabled);
+            return;
+        }
         const registeredActions : RegisteredAction[] = this.props.registeredActions;
         const editedAction: RegisteredAction = registeredActions[index];
         switch (actionType) {
@@ -37,13 +42,10 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
                 editedAction.startTime = previousDate.toDateString();
                 break;
             case this.DURATION_CHANGED:
-                editedAction.duration = event.target.value
+                editedAction.duration = event.target.value;
                 break;
             case this.ACTION_CHANGED:
                 editedAction.projectActionId = event.value;
-                break;
-            case this.ADMIN_MODE_CHECKED:
-                this.props.adminModeChanged(!this.props.adminModeChanged)
                 break;
             case this.DELETED:
                 registeredActions.splice(index, 1);
@@ -58,17 +60,19 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
         return (
             <div className={"container-fluid"}>
                 <div className={"row"}>
-                    <label>Here you can edit entered times</label>
                     {this.props.canAdminModeBeEnabled ?
                         <div>
                             <label>Enable project manager mode?</label>
-                            <Toggle
-                                defaultChecked={false}
-                                checked={this.props.isAdminModeEnabled}
-                                
-                            />
+                            <div>
+                                <Toggle
+                                    checked={this.props.isAdminModeEnabled}
+                                    onChange={this.itemChanged.bind(this,  this.ADMIN_MODE_CHECKED)}
+                                />
+                            </div>    
                         </div>
-                    : null}
+                        : null}
+                    <br />
+                    <label>Here you can edit entered times</label>
                     <table className={"table table-responsive table-bordered table-hover table-striped table-condensed"}>
                         <thead>
                             <tr>

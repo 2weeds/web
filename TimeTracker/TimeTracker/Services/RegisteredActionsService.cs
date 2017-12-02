@@ -12,11 +12,14 @@ namespace TimeTracker.Services
     {
 
         private readonly IRegisteredActionRepository registeredActionRepository;
+        private readonly IProjectMembersRepository projectMembersRepository;
 
         public RegisteredActionsService(
-            IRegisteredActionRepository registeredActionRepository)
+            IRegisteredActionRepository registeredActionRepository,
+            IProjectMembersRepository projectMembersRepository)
         {
             this.registeredActionRepository = registeredActionRepository;
+            this.projectMembersRepository = projectMembersRepository;
         }
         
         public IEnumerable<RegisteredAction> GetAll()
@@ -52,6 +55,13 @@ namespace TimeTracker.Services
         public List<RegisteredAction> GetRegisteredProjectMemberActions(string projectMemberId)
         {
             return registeredActionRepository.GetRegisteredProjectMemberActions(projectMemberId);
+        }
+
+        public List<RegisteredAction> GetAllProjectRegisteredActions(string projectId)
+        {
+            List<string> projectMembersIds = projectMembersRepository
+                .GetProjectMembersOfProject(projectId).Select(x => x.Id).Distinct().ToList();
+            return registeredActionRepository.GetProjectRegisteredActions(projectMembersIds);
         }
 
         public bool UpdateRegisteredActions(List<RegisteredAction> registeredActions, string projectMemberId)

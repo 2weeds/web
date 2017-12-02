@@ -52,15 +52,14 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
             },
             registeredProjectMemberActions: null,
             canAdminModeBeEnabled: false,
-            isAdminModeEnabled: false
+            isAdminModeEnabled: true
         };
     }
     
     private resetModifiedRegisteredActions() {
-        console.log("reset");
-        console.log("backup", this.registeredActionsBackup);
         const lastState: ITrackingComponentState = this.state;
         lastState.registeredProjectMemberActions = JSON.parse(JSON.stringify(this.registeredActionsBackup));
+        lastState.isAdminModeEnabled = true;
         this.setState(lastState);
     }
     
@@ -80,8 +79,6 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
         let requestUrl: string = "/Tracking/RegisterTime?projectMemberActionId=" +
             this.state.selectedAction + "&duration=" + this.state.enteredDuration + 
             "&projectMemberId=" + this.state.currentProject.projectMemberId;
-        console.log("request Url");
-        console.log("requestUrl", requestUrl);
         const lastState: ITrackingComponentState = this.state;
         request.get(requestUrl).then((response: any) => {
            
@@ -110,12 +107,12 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
         let requestUrl : string = "/Projects/GetAvailableProjectUserActions?projectId=" + project.value;
         request.get(requestUrl, this.config).then((response: any) => {
             const lastState: ITrackingComponentState = this.state;
+            lastState.canAdminModeBeEnabled = canAdminModeBeEnabled;
             lastState.alertComponentProperties.display = false;
             if (response.data == "MissingParameters") {
                 lastState.alertComponentProperties.messageType = MessageType.danger;
                 lastState.alertComponentProperties.message = messages["MissingProperties"];
             } else {
-                console.log("response", response);
                 lastState.alertComponentProperties.messageType = MessageType.success;
                 lastState.alertComponentProperties.message = messages["Success"];
                 let projectMemberActions : SelectListItem[]
@@ -168,12 +165,25 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                     lastState.alertComponentProperties.display = false;
                     this.setState(lastState);
                 }, 3000);
-                console.log("response.data.message", response.data.message);
             })
             
     }
     
     private adminModeChanged(isAdminModeEnabled: boolean) {
+        let newState: ITrackingComponentState = this.state;
+        newState.isAdminModeEnabled = isAdminModeEnabled;
+        if (!isAdminModeEnabled) {
+            const filteredRegisteredActions 
+                = this.registeredActionsBackup.filter((registeredAction: RegisteredAction) => {
+                    return registeredAction.projectMemberId == this.state.currentProject.projectMemberId;
+            });
+            newState.registeredProjectMemberActions = filteredRegisteredActions;
+            console.log("newState", newState);
+            this.setState(newState);
+        } else {
+            newState.registeredProjectMemberActions = this.registeredActionsBackup;
+            this.setState(newState);
+        }
         
     }
     
