@@ -5,17 +5,19 @@ import "react-select/dist/react-select.css";
 import { ITrackingProps } from "./tracking-props"
 
 export interface IProjectPickerProps extends ITrackingProps {
-    valueChanged(selectedProject : Project): any;
+    valueChanged(selectedProject : Project, canAdminModeBeEnabled: boolean): any;
     selectedValue: string;
 }
 
 export default class ProjectPickerComponent extends React.Component<IProjectPickerProps, any> {
     
     private valueChanged(val: any) {
-        this.props.valueChanged(val);
+        console.log("val", val);
+        this.props.valueChanged(val, val.canAdminModeBeEnabled);
     }
     
     render() {
+        console.log("this.props.projects", this.props.projects);
         return (
           <div className="container-fluid">
               <div className="row">

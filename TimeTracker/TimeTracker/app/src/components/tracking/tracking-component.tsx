@@ -17,7 +17,9 @@ export interface ITrackingComponentState {
     enteredDuration: string,
     projectMemberActions: SelectListItem[],
     alertComponentProperties: IAlertComponentProps,
-    registeredProjectMemberActions: RegisteredAction[]
+    registeredProjectMemberActions: RegisteredAction[],
+    canAdminModeBeEnabled: boolean,
+    isAdminModeEnabled: boolean
 }
 
 const messages: any = {
@@ -48,7 +50,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 message: "",
                 messageType: MessageType.success
             },
-            registeredProjectMemberActions: null    
+            registeredProjectMemberActions: null,
+            canAdminModeBeEnabled: false,
+            isAdminModeEnabled: false
         };
     }
     
@@ -98,11 +102,11 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
             alertProps.display = false;
             lastState.alertComponentProperties = alertProps;
             this.setState(lastState);
-            this.projectChanged(this.state.currentProject);
+            this.projectChanged(this.state.currentProject, this.state.canAdminModeBeEnabled);
         }, 5000);
     }
     
-    private projectChanged(project: any) {
+    private projectChanged(project: any, canAdminModeBeEnabled: boolean) {
         let requestUrl : string = "/Projects/GetAvailableProjectUserActions?projectId=" + project.value;
         request.get(requestUrl, this.config).then((response: any) => {
             const lastState: ITrackingComponentState = this.state;
@@ -158,7 +162,7 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                     lastState.alertComponentProperties.message = messages["Sucess"];
                     lastState.alertComponentProperties.messageType = MessageType.success;
                     this.setState(lastState);
-                    this.projectChanged(this.state.currentProject);
+                    this.projectChanged(this.state.currentProject, this.state.canAdminModeBeEnabled);
                 }
                 setTimeout(() => {
                     lastState.alertComponentProperties.display = false;
@@ -167,6 +171,10 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                 console.log("response.data.message", response.data.message);
             })
             
+    }
+    
+    private adminModeChanged(isAdminModeEnabled: boolean) {
+        
     }
     
     render() {
@@ -178,7 +186,7 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                     selectedValue={this.state.currentProject != null ? this.state.currentProject.value : ""}
                 />
                 {this.state.projectMemberActions == null ? 
-                    <label>Choose the project first</label> : 
+                    <label>Choose the project first</label> :
                 <Tabs>
                     <TabList>
                         <Tab>
@@ -207,6 +215,9 @@ export default class TrackingComponent extends React.Component<ITrackingProps, I
                             registeredActionsChanged={this.registeredActionsChanged.bind(this)}
                             resetModifiedActions={this.resetModifiedRegisteredActions.bind(this)}
                             saveActions={this.saveActions.bind(this)}
+                            canAdminModeBeEnabled={this.state.canAdminModeBeEnabled}
+                            isAdminModeEnabled={this.state.isAdminModeEnabled}
+                            adminModeChanged={this.adminModeChanged.bind(this)}
                         />
                     </TabPanel>    
                 </Tabs> }

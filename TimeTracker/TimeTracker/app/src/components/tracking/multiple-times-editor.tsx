@@ -5,13 +5,17 @@ import Select from "react-select";
 import "react-select/dist/react-select.css";
 import DatePicker from 'react-date-picker';
 import * as moment from "moment";
+import Toggle from "react-toggle";
 
 export interface IMultipleTimesEditocComponentProps {
     registeredActions: RegisteredAction[],
     possibleUserActions: SelectListItem[],
     registeredActionsChanged(registeredActions: RegisteredAction[]): void;
     resetModifiedActions(): void;
-    saveActions(): void;
+    saveActions(): void,
+    canAdminModeBeEnabled: boolean,
+    isAdminModeEnabled: boolean,
+    adminModeChanged(isAdminModeEnabled: boolean): void
 }
 
 export default class MultipleTimesEditorComponent extends React.Component<IMultipleTimesEditocComponentProps, any> {
@@ -20,6 +24,7 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
     private DURATION_CHANGED : number = 1;
     private ACTION_CHANGED : number = 2;
     private DELETED: number = 3;
+    private ADMIN_MODE_CHECKED: number = 4;
     
     private itemChanged(actionType: number, index: number, event: any) : any {
         const registeredActions : RegisteredAction[] = this.props.registeredActions;
@@ -37,6 +42,9 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
             case this.ACTION_CHANGED:
                 editedAction.projectActionId = event.value;
                 break;
+            case this.ADMIN_MODE_CHECKED:
+                this.props.adminModeChanged(!this.props.adminModeChanged)
+                break;
             case this.DELETED:
                 registeredActions.splice(index, 1);
                 this.props.registeredActionsChanged(registeredActions);
@@ -51,6 +59,16 @@ export default class MultipleTimesEditorComponent extends React.Component<IMulti
             <div className={"container-fluid"}>
                 <div className={"row"}>
                     <label>Here you can edit entered times</label>
+                    {this.props.canAdminModeBeEnabled ?
+                        <div>
+                            <label>Enable project manager mode?</label>
+                            <Toggle
+                                defaultChecked={false}
+                                checked={this.props.isAdminModeEnabled}
+                                
+                            />
+                        </div>
+                    : null}
                     <table className={"table table-responsive table-bordered table-hover table-striped table-condensed"}>
                         <thead>
                             <tr>

@@ -168,7 +168,7 @@ namespace TimeTracker.Repositories
                     {
                         UserId = x.value,
                         ProjectId = projectId,
-                        MemberRole = 1
+                        MemberRole = 0
                     }).ToList();
                 foreach (ProjectMember projectMember in projectMembersToInsert)
                 {

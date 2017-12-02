@@ -20,7 +20,7 @@ namespace TimeTracker.Controllers
         private readonly IRegisteredActionsService registeredActionsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IProjectMembersService projectMembersService;
-        private readonly IProjectActionRepository _projectActionsRepository;
+        private readonly IProjectActionRepository projectActionsRepository;
 
         public TrackingController(IProjectsService projectsService,
             IRegisteredActionsService registeredActionsService,
@@ -32,7 +32,7 @@ namespace TimeTracker.Controllers
             this.registeredActionsService = registeredActionsService;
             this.userManager = userManager;
             this.projectMembersService = projectMembersService;
-            this._projectActionsRepository = projectActionsRepository;
+            this.projectActionsRepository = projectActionsRepository;
         }
 
         public IActionResult Index()
@@ -48,7 +48,10 @@ namespace TimeTracker.Controllers
                         value = project.value,
                         projectMemberId =
                             projectMembersService.GetProjectMembersOfProject(project.value, currentUserId)
-                                .First(x => x.IsCurrentUser).Id
+                                .First(x => x.IsCurrentUser).Id,
+                        isProjectManager =
+                            projectMembersService.GetProjectMembersOfProject(project.value, currentUserId)
+                                .First(x => x.IsCurrentUser).MemberRole == 1
                     }
                 ).ToList();
             return View(projectsAsSelectListItems);
@@ -61,12 +64,12 @@ namespace TimeTracker.Controllers
                 return new JsonResult(new {message = "MissingParameters"});
             }
             DateTime now = DateTime.Now;
-            ProjectAction projectMemberAction = _projectActionsRepository.Get(projectMemberActionId);
+            ProjectAction projectMemberAction = projectActionsRepository.Get(projectMemberActionId);
             RegisteredAction registeredAction = new RegisteredAction
             {
                 StartTime = now,
                 Duration = duration,
-                ProjectMemberId = projectMemberId,
+                ProjectMemberId = projectMemberId,    
                 ProjectActionId =  projectMemberActionId
             };
             string result = registeredActionsService.Add(registeredAction);
