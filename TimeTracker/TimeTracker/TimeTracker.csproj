@@ -52,4 +52,8 @@
   <ItemGroup>
     <Folder Include="app\dist\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="app\src\models\timer.tsx" />
+  </ItemGroup>
 </Project>
