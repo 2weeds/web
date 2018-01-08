@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Remotion.Linq.Parsing;
 using TimeTracker.Data;
 using TimeTracker.Models;
 using TimeTracker.Models.ProjectModels;
@@ -83,6 +85,15 @@ namespace TimeTracker.Repositories
             }
         }
 
+        public List<ProjectMember> GetAllProjectMembersByUserId(string userId)
+        {
+            if (userId == null)
+            {
+                return null;
+            }
+            return GetAll().Where(pm => pm.UserId == userId).ToList();
+        }
+
         public string Update(ProjectMember model)
         {
             try
@@ -97,33 +108,71 @@ namespace TimeTracker.Repositories
             }
         }
 
-        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds)
+        private bool PerformDuplicateUserCleanup(string projectId)
+        {
+            try
+            {
+                List<ProjectMember> projectMembersOfProject = GetProjectMembersOfProject(projectId);
+                IEnumerable<string> allProjectMemberIds = projectMembersOfProject.Select(x => x.UserId);
+                IEnumerable<string> distinctProjectMemberIds = allProjectMemberIds.Distinct();
+                foreach (string distinctProjectMemberId in distinctProjectMemberIds)
+                {
+                    int eachIdCount = allProjectMemberIds.Count(x => x == distinctProjectMemberId);
+                    for (int i = 0; i < eachIdCount - 1; i++)
+                    {
+                        ProjectMember projectMember =
+                            projectMembersOfProject.First(x => x.UserId == distinctProjectMemberId);
+                        Remove(projectMember.Id);
+                    }
+                }                
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateProjectMembersForProject(string projectId, List<ReactSelectListItem> projectMemberIds, string currentUserId)
         {
             using (var transaction = dbContext.Database.BeginTransaction())
             {
+                //PerformDuplicateUserCleanup(projectId);
                 List<ProjectMember> previousProjectMembers = GetProjectMembersOfProject(projectId);
-                if (previousProjectMembers.Count > 0 && projectMemberIds == null)
+                List<string> deletedUserIds = new List<string>();
+                foreach (ProjectMember previousProjectMember in previousProjectMembers)
                 {
-                    dbContext.RemoveRange(previousProjectMembers);
-                } else if (projectMemberIds != null)
-                {
-                    List<ProjectMember> deletedProjectMembers = previousProjectMembers
-                        .Where(ppm => !projectMemberIds.Any(pmi => pmi.value == ppm.Id)).ToList();
-                    dbContext.RemoveRange(deletedProjectMembers);
-                    List<ProjectMember> projectMembersToInsert = projectMemberIds
-                        .Where(pmi => !deletedProjectMembers.Any(dpm => dpm.Id == pmi.value))
-                        .Select(newId =>
-                           new ProjectMember
-                            {
-                                MemberRole = 1,
-                                ProjectId = projectId,
-                                UserId = newId.value
-                            }
-                        ).ToList();
-                    foreach (ProjectMember projectMember in projectMembersToInsert)
+                    if (previousProjectMember.UserId != currentUserId)
                     {
-                        dbContext.ProjectMembers.Add(projectMember);
+                        if (!projectMemberIds.Any(x => x.value == previousProjectMember.UserId))
+                        {
+                            deletedUserIds.Add(previousProjectMember.UserId);
+                        }
+                        else
+                        {
+                            projectMemberIds.RemoveAll(x => x.value == previousProjectMember.UserId);
+                        }
                     }
+                }
+                foreach (string deletedUserId in deletedUserIds)
+                {
+                    IEnumerable<ProjectMember> deletedMembers =
+                        previousProjectMembers.Where(x => x.UserId == deletedUserId).ToList();
+                    foreach (ProjectMember projectMember in deletedMembers)
+                    {
+                        Remove(projectMember.Id);
+                    }
+                }
+                List<ProjectMember> projectMembersToInsert =
+                    projectMemberIds.Select(x => new ProjectMember
+                    {
+                        UserId = x.value,
+                        ProjectId = projectId,
+                        MemberRole = 0
+                    }).ToList();
+                foreach (ProjectMember projectMember in projectMembersToInsert)
+                {
+                    Add(projectMember);
                 }
                 try
                 {

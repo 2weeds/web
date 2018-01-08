@@ -1,10 +1,12 @@
 import { SelectListItem } from "../select-list-item";
-import { ProjectMemberAction } from "./project-member-action";
+import { ProjectMember } from "./project-member";
+import {ProjectAction} from "./project-action";
 
 export interface Project {
     id: string,
     usernamesWithIds: SelectListItem[],
     title: string,
     projectMemberIds: SelectListItem[],
-    projectMemberActions: ProjectMemberAction[],
+    projectMembers: ProjectMember[],
+    projectActions: ProjectAction[]
 }

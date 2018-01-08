@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TimeTracker.Models.ProjectModels
 {
@@ -14,6 +11,12 @@ namespace TimeTracker.Models.ProjectModels
         public string UserId { get; set; }
         public string ProjectId { get; set; }
         public int MemberRole { get; set; }
+
+        [NotMapped]
+        public virtual List<ProjectAction> ProjectActions { get; set; }
+
+        [NotMapped]
+        public bool IsCurrentUser { get; set; }
 
     }
 }

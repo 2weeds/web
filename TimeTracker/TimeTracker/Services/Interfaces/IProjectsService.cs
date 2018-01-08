@@ -13,5 +13,10 @@ namespace TimeTracker.Services.Interfaces
     {
         bool CanUserRemoveMember(string userId, string projectId);
         List<ReactSelectListItem> GetProjectCreateModel(string projectId, ClaimsPrincipal user);
+        string Add(Project project, ClaimsPrincipal user);
+        Project Get(string projectId, ClaimsPrincipal user);
+        string Update(Project model, ClaimsPrincipal principal);
+        List<ReactSelectListItem> GetUserProjects(string userId);
+        List<Project> GetAllUserProjectObjects(string userId);
     }
 }

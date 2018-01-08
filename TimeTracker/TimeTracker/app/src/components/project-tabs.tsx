@@ -10,16 +10,27 @@ import ProjectMembersComponent from "./project/project-members-component";
 import { Project } from "../models/projects/project";
 import request from 'axios';
 import { IProjectComponentProps } from "./project/project-component-props";
-import ProjectMemberActionsComponent from "./project/project-member-actions-component";
-import { ProjectMemberAction } from "../models/projects/project-member-action";
+import ProjectActionsComponent from "./project/project-actions-component";
+import { ProjectAction } from "../models/projects/project-action";
+import { ProjectMember } from "../models/projects/project-member";
+import { IProjectActionsComponentProps } from "./project/project-actions-component";
+import { MessageType, IAlertComponentProps } from "./universal/alert-component";
+import AlertComponent from "./universal/alert-component";
 
 export interface IProjectTabsComponentProps {
     project: Project,
 }
 
 export interface IProjectTabsComponentState {
-    project: Project
+    project: Project,
+    alertComponentProperties: IAlertComponentProps
 }
+
+const messages: any = {
+    "ProjectTitleNotUnique": "Project title is not unique.",
+    "UnknownError": "Unknown error has occured. Contact the developers.",
+    "Success": "Your changes have been successfully submitted."
+};
 
 export default class ProjectTabsComponent extends React.Component<IProjectTabsComponentProps, IProjectTabsComponentState> {
 
@@ -32,8 +43,25 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
 
     constructor(props: IProjectTabsComponentProps) {
         super(props);
+        const componentProject = props.project;
+        if (componentProject.title == null) {
+            componentProject.title = "";
+        }
         this.state = {
-            project: props.project
+            project: componentProject,
+            alertComponentProperties: {
+                display: false,
+                message: "",
+                messageType: MessageType.success
+            }
+        };
+    }
+
+    private static getAlertComponentProperties(message: string, messageType: MessageType): IAlertComponentProps {
+        return {
+            display: true,
+            message: message,
+            messageType: messageType
         };
     }
 
@@ -47,17 +75,35 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
         if (project.title.length > 0) {
             request.post(this.getProjectUrl(project), JSON.stringify(project), config)
                 .then((response: any) => {
-                    const responseProject: Project = response.data;
-                    console.log("siuntem: ", project);
-                    console.log("gavom", responseProject);
+                    let lastAlertProperties: IAlertComponentProps = this.state.alertComponentProperties;
+                    let responseProject: Project = this.state.project;
+                    if (response.data.message != null) {
+                        const message = response.data.message == "ProjectTitleNotUnique" ? messages["ProjectTitleNotUnique"] : messages["UnknownError"];
+                        lastAlertProperties = ProjectTabsComponent.getAlertComponentProperties(message, MessageType.danger);
+                    
+                    } else {
+                        responseProject = response.data;
+                        lastAlertProperties = ProjectTabsComponent.getAlertComponentProperties(messages["Success"], MessageType.success);
+                    }
                     this.setState({
-                        project: responseProject
+                        project: responseProject,
+                        alertComponentProperties: lastAlertProperties
                     });
-
                 })
                 .catch((response: any) => {
-                    console.log("error response: ", response);
+                    this.setState({
+                        project: this.state.project,
+                        alertComponentProperties: ProjectTabsComponent.getAlertComponentProperties(messages["UnknownError"], MessageType.danger)
+                    });
                 });
+            setTimeout(() => {
+                const alertProps = this.state.alertComponentProperties;
+                alertProps.display = false;
+                this.setState({
+                    alertComponentProperties: alertProps,
+                    project: this.state.project
+                });
+            }, 3000);
         }
     }
 
@@ -67,27 +113,54 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
         });
     }
 
+    private tabSelected() {
+        const alertProps = this.state.alertComponentProperties;
+        alertProps.display = false;
+        this.setState({
+            project: this.state.project,
+            alertComponentProperties: alertProps
+        });
+    }
+
     render() {
 
         const currentProject = this.state.project;
-
-        if (currentProject.projectMemberIds != null && currentProject.projectMemberActions.length == 0) {
-            const fakeMemberAction: ProjectMemberAction = {
-                id: "",
-                description: "",
-                projectMemberId: ""
-            };
-            currentProject.projectMemberActions.push(fakeMemberAction);
+        console.log("currentProject", currentProject);
+        if (currentProject.projectActions == null) {
+            currentProject.projectActions = [];
         }
 
+        if (currentProject.projectActions.length == 0) {
+            const emptyAction: ProjectAction = {
+                description: '',
+                id: '',
+                projectId: this.state.project.id
+            }
+            currentProject.projectActions = [emptyAction];
+        }
+
+        let currentProjectMemberIndex: number = -1;
+
+        if (currentProject.projectMembers != null) {
+            currentProjectMemberIndex = currentProject.projectMembers.map((e, i) => {
+                if (e.isCurrentUser) {
+                    return i;   
+                }
+            }).filter((e) => e != null)[0];
+        }
         const componentProps: IProjectComponentProps = {
             projectSaved: this.allowAddingMembers.bind(this),
             project: currentProject,
             projectChanged: this.projectChanged.bind(this)
         };
 
+        const projectMemberComponentProps: IProjectActionsComponentProps = {
+            ...componentProps,
+            currentUserIndex: currentProjectMemberIndex
+        };
+
         return (
-            <Tabs>
+            <Tabs onSelect={this.tabSelected.bind(this)}>
                 <TabList>
                     <Tab>
                         Title
@@ -95,18 +168,21 @@ export default class ProjectTabsComponent extends React.Component<IProjectTabsCo
                     <Tab disabled={this.state.project.id == null}>
                         Members
                     </Tab>
-                    <Tab disabled={this.state.project.projectMemberIds == null}>
+                    <Tab disabled={this.state.project.id == null}>
                         Actions
                     </Tab>
                 </TabList>
                 <TabPanel>
+                    <AlertComponent {...this.state.alertComponentProperties} />
                     <MainProjectInfoComponent {...componentProps} />
                 </TabPanel>
                 <TabPanel>
+                    <AlertComponent {...this.state.alertComponentProperties} />
                     <ProjectMembersComponent {...componentProps} />
                 </TabPanel>
                 <TabPanel>
-                    <ProjectMemberActionsComponent {...componentProps} />
+                    <AlertComponent {...this.state.alertComponentProperties} />
+                    <ProjectActionsComponent {...projectMemberComponentProps} />
                 </TabPanel>
             </Tabs>
         );

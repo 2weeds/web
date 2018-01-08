@@ -58,14 +58,6 @@ namespace TimeTracker
                     Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            //var sqlConnectionString = Configuration.GetConnectionString("DataAccessMySqlProvider");
-            //app.AddDbContext<DomainModelMySqlContext>(options =>
-            //   options.UseMySQL(
-            //        sqlConnectionString,
-            //        b => b.MigrationsAssembly("AspNetCoreMultipleProject")
-            //    )
-            //);
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -81,8 +73,10 @@ namespace TimeTracker
             services.AddTransient<IProjectsRepository, ProjectsRepository>();
             services.AddTransient<IProjectsService, ProjectsService>();
             services.AddTransient<IProjectMembersRepository, ProjectMembersRepository>();
-            services.AddTransient<IProjectMemberActionRepository, ProjectMemberActionRepository>();
+            services.AddTransient<IProjectActionRepository, ProjectActionRepository>();
             services.AddTransient<IProjectMembersService, ProjectMembersService>();
+            services.AddTransient<IRegisteredActionRepository, RegisteredActionsRepository>();
+            services.AddTransient<IRegisteredActionsService, RegisteredActionsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

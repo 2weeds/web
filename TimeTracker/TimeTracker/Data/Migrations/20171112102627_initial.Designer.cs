@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TimeTracker.Data;
 
-namespace TimeTracker.Migrations
+namespace TimeTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171112102627_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
@@ -197,8 +198,6 @@ namespace TimeTracker.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
-
                     b.ToTable("ProjectMembers");
                 });
 
@@ -269,13 +268,6 @@ namespace TimeTracker.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TimeTracker.Models.ProjectModels.ProjectMember", b =>
-                {
-                    b.HasOne("TimeTracker.Models.ProjectModels.Project")
-                        .WithMany("ProjectMembers")
-                        .HasForeignKey("ProjectId");
                 });
         }
     }
